@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Doctor App</string>
+    <string name="mustFillPhoneEmail">Nomor telphone atau Email wajib Diisi</string>
+    <string name="mustFillPassword">Password wajib Diisi</string>
+    <string name="mustFillConfirmPassword">Confirm Password wajib Diisi</string>
+    <string name="mustFillName">Nama wajib Diisi</string>
+</resources>
