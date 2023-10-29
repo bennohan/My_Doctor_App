@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_to_konsul_dok">Welcome to “Konsul-Dok!”</string>
+    <string name="email_or_phone_number">Email or Phone number</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="kecamatan">Kecamatan</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="have_an_account_login_now">Have an account? Login Now</string>
+    <string name="passwrord_tidak_sama">Passwrord Tidak Sama</string>
+    <string name="password_min_length">Passwrord Minimal 8 Karakter</string>
+</resources>
