@@ -4,4 +4,23 @@
     <string name="mustFillPassword">Password wajib Diisi</string>
     <string name="mustFillConfirmPassword">Confirm Password wajib Diisi</string>
     <string name="mustFillName">Nama wajib Diisi</string>
+    <string name="mustFillPhone">Nomor Telephone Wajib di isi</string>
+    <string name="mustFillKecamatan">Kecamatan Wajib di isi</string>
+    <string name="mustFillEmail">Email Wajib di isi</string>
+    <string name="welcome_to_konsul_dok">Welcome to “Konsul-Dok!”</string>
+    <string name="dummy_Lore_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="sign_in_to_get_started">Sign in to get started</string>
+    <string name="email_or_phone_number">Email or Phone number</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="create_an_account">Create an Account</string>
+    <string name="kecamatan">Kecamatan</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="have_an_account_login_now">Have an account? Login Now</string>
+    <string name="passwrord_tidak_sama">Passwrord Tidak Sama</string>
+    <string name="password_min_length">Passwrord Minimal 8 Karakter</string>
 </resources>

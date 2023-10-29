@@ -2,12 +2,17 @@ package com.bennohan.mydoctorapp.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ClickableSpan
+import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.databinding.ActivityLoginBinding
+import com.bennohan.mydoctorapp.ui.home.HomeActivity
+import com.bennohan.mydoctorapp.ui.register.RegisterActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.extension.isEmptyRequired
 import com.crocodic.core.extension.openActivity
@@ -23,6 +28,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
 
         //Calling Function
         observe()
+//        tvRegisterOption()
+
 
         binding.btnLogin.setOnClickListener {
             login()
@@ -30,6 +37,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
 
 
     }
+
+//    private fun tvRegisterOption(){
+//        val spannableString = SpannableString("Don’t have an account? Register")
+//        val clickableSpan = object : ClickableSpan() {
+//            override fun onClick(view: View) {
+//                openActivity<RegisterActivity>()
+//            }
+//        }
+//        spannableString.setSpan(clickableSpan, 23, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        binding.tvRe.text = spannableString
+//        binding.tvRegisterOption.movementMethod = LinkMovementMethod.getInstance() // Required for clickable spans to work
+//
+//    }
 
     //Login Function
     private fun login() {
@@ -53,10 +73,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
                         when (it.status) {
                             ApiStatus.LOADING -> loadingDialog.show()
                             ApiStatus.SUCCESS -> {
-//                                openActivity<HomeActivity> {
-//                                    finish()
-//                                }
-                                tos("Login Success")
+                                openActivity<HomeActivity> {
+                                    finish()
+                                    tos("Login Success")
+                                }
                             }
                             ApiStatus.ERROR -> {
                                 disconnect(it)
