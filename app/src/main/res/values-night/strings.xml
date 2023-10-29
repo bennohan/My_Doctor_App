@@ -12,4 +12,6 @@
     <string name="have_an_account_login_now">Have an account? Login Now</string>
     <string name="passwrord_tidak_sama">Passwrord Tidak Sama</string>
     <string name="password_min_length">Passwrord Minimal 8 Karakter</string>
+    <string name="image_profile">Image Profile</string>
+    <string name="dokter_sebelumnya">Dokter Sebelumnya</string>
 </resources>

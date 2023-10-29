@@ -3,6 +3,8 @@ package com.bennohan.mydoctorapp.ui.login
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import androidx.lifecycle.Lifecycle
@@ -28,7 +30,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
 
         //Calling Function
         observe()
-//        tvRegisterOption()
+        tvRegisterOption()
 
 
         binding.btnLogin.setOnClickListener {
@@ -38,18 +40,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
 
     }
 
-//    private fun tvRegisterOption(){
-//        val spannableString = SpannableString("Don’t have an account? Register")
-//        val clickableSpan = object : ClickableSpan() {
-//            override fun onClick(view: View) {
-//                openActivity<RegisterActivity>()
-//            }
-//        }
-//        spannableString.setSpan(clickableSpan, 23, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-//        binding.tvRe.text = spannableString
-//        binding.tvRegisterOption.movementMethod = LinkMovementMethod.getInstance() // Required for clickable spans to work
-//
-//    }
+    private fun tvRegisterOption(){
+        val spannableString = SpannableString("Don’t have an account? Register")
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                openActivity<RegisterActivity>()
+            }
+        }
+        spannableString.setSpan(clickableSpan, 23, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.tvOptionRegster.text = spannableString
+        binding.tvOptionRegster.movementMethod = LinkMovementMethod.getInstance() // Required for clickable spans to work
+
+    }
 
     //Login Function
     private fun login() {
