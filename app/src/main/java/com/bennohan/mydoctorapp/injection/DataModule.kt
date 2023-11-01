@@ -3,6 +3,7 @@ package com.bennohan.mydoctorapp.injection
 import android.content.Context
 import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.data.AppDatabase
+import com.bennohan.mydoctorapp.data.Const
 import com.crocodic.core.BuildConfig
 import com.crocodic.core.data.CoreSession
 import com.crocodic.core.helper.okhttp.SSLTrust
@@ -39,9 +40,6 @@ class DataModule {
     @Provides
     fun provideGson() = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create()
 
-//    @Provides
-//    fun provideBaseObserver(apiService: ApiService,session: CoreSession): BaseObserver = BaseObserver(apiService,session)
-
 
     @Singleton
     @Provides
@@ -63,9 +61,9 @@ class DataModule {
 
             .addInterceptor { chain ->
                 val original = chain.request()
-//                val token = session.getString(Const.TOKEN.ACCESS_TOKEN)
+                val token = session.getString(Const.TOKEN.ACCESS_TOKEN)
                 val requestBuilder = original.newBuilder()
-//                    .header("Authorization", "Bearer $token")
+                    .header("Authorization", "Bearer $token")
                     .header("Content-Type", "application/json")
                     .method(original.method, original.body)
 //                    .header("Authorization","")

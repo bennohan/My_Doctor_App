@@ -9,9 +9,16 @@
         tools:context=".ui.home.NavigationActivity">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coordinator"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:id="@+id/coordinator"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="60dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomNavigationAppBar"

@@ -119,7 +119,7 @@ class RegisterActivity :
             return
         }
 
-//        viewModel.register(name, emailPhone, password, confirmPassword)
+        viewModel.register(name, email, phone, password, confirmPassword)
         tos("$name,$phone$kecamatan,$email,$password,$confirmPassword")
     }
 

@@ -40,6 +40,7 @@ class LoginViewModel @Inject constructor(
                     val token = response.getString("token")
                     userDao.insert(data.copy(idRoom = 1))
                     Timber.tag("cek token").d(token)
+                    Log.d("cek token","$token")
                     session.setValue(Const.TOKEN.ACCESS_TOKEN, token)
                     _apiResponse.emit(ApiResponse().responseSuccess())
 

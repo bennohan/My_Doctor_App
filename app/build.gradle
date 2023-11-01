@@ -62,7 +62,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
     //fragment
-    //fragment
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "androidx.fragment:fragment-ktx:1.6.0"
@@ -75,8 +74,8 @@ dependencies {
     kapt 'com.google.dagger:hilt-compiler:2.44.2'
 
     //room
-    implementation 'androidx.room:room-ktx:2.6.0'
-    kapt 'androidx.room:room-compiler:2.6.0'
+    implementation 'androidx.room:room-ktx:2.5.2'
+    kapt 'androidx.room:room-compiler:2.5.2'
 
     //image Slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
