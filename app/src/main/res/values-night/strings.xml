@@ -14,4 +14,7 @@
     <string name="password_min_length">Passwrord Minimal 8 Karakter</string>
     <string name="image_profile">Image Profile</string>
     <string name="dokter_sebelumnya">Dokter Sebelumnya</string>
+    <string name="history">History</string>
+    <string name="favourite">Favourite</string>
+    <string name="home">Home</string>
 </resources>

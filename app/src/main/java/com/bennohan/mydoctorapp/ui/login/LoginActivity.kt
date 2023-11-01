@@ -1,6 +1,5 @@
 package com.bennohan.mydoctorapp.ui.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -14,6 +13,7 @@ import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.databinding.ActivityLoginBinding
 import com.bennohan.mydoctorapp.ui.home.HomeActivity
+import com.bennohan.mydoctorapp.ui.home.NavigationActivity
 import com.bennohan.mydoctorapp.ui.register.RegisterActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.extension.isEmptyRequired
@@ -75,7 +75,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
                         when (it.status) {
                             ApiStatus.LOADING -> loadingDialog.show()
                             ApiStatus.SUCCESS -> {
-                                openActivity<HomeActivity> {
+                                openActivity<NavigationActivity> {
                                     finish()
                                     tos("Login Success")
                                 }

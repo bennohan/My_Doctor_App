@@ -9,6 +9,9 @@ import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.ActivityMainBinding
+import com.bennohan.mydoctorapp.ui.home.NavigationActivity
+import com.bennohan.mydoctorapp.ui.login.LoginActivity
+import com.bennohan.mydoctorapp.ui.register.RegisterActivity
 import com.crocodic.core.base.activity.NoViewModelActivity
 import com.crocodic.core.extension.openActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,15 +33,20 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
             lifecycleScope.launch {
                 val user = userDao.isLogin()
                 if (!user) {
-//                    binding.btnStart.setOnClickListener {
-//                        openActivity<LoginActivity> {
-//                            finish()
-//                        }
-//                    }
+                    binding.btnLogin.setOnClickListener {
+                        openActivity<LoginActivity> {
+                            finish()
+                        }
+                    }
+                    binding.btnRegister.setOnClickListener{
+                        openActivity<RegisterActivity> {
+                            finish()
+                        }
+                    }
                 } else {
-//                    openActivity<HomeActivity> {
-//                        finish()
-//                    }
+                    openActivity<NavigationActivity> {
+                        finish()
+                    }
                 }
             }
 

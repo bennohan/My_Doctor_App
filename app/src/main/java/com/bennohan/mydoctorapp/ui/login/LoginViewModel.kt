@@ -16,6 +16,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,8 +39,8 @@ class LoginViewModel @Inject constructor(
                     val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
                     val token = response.getString("token")
                     userDao.insert(data.copy(idRoom = 1))
-                    Log.d("cek token",token)
-                    session.setValue(Const.TOKEN.ACCESS_TOKEN,token)
+                    Timber.tag("cek token").d(token)
+                    session.setValue(Const.TOKEN.ACCESS_TOKEN, token)
                     _apiResponse.emit(ApiResponse().responseSuccess())
 
                 }
