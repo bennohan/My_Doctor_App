@@ -1,4 +1,4 @@
-package com.bennohan.mydoctorapp.data
+package com.bennohan.mydoctorapp.data.user
 
 
 import androidx.room.Entity

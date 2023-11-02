@@ -17,4 +17,6 @@
     <string name="history">History</string>
     <string name="favourite">Favourite</string>
     <string name="home">Home</string>
+    <string name="button_back">Button Back</string>
+    <string name="person_name">Person Name</string>
 </resources>

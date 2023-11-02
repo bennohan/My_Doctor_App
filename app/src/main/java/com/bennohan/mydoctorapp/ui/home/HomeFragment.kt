@@ -1,29 +1,33 @@
 package com.bennohan.mydoctorapp.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
-import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.Doctor
+import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
+    @Inject
+    lateinit var userDao: UserDao
     private val viewModel by activityViewModels<HomeViewModel>()
+    private var dataDoctor = ArrayList<Doctor?>()
+
 
     private val adapterDoctor by lazy {
         object : ReactiveListAdapter<ItemDoctorBinding, Doctor>(R.layout.item_doctor) {
@@ -65,39 +69,65 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         getDoctor()
         observe()
+        search()
 
     }
 
     private fun observe() {
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    launch {
-                        viewModel.apiResponse.collect {
-                            when (it.status) {
-                                ApiStatus.LOADING -> {}
-                                ApiStatus.SUCCESS -> {}
-                                ApiStatus.ERROR -> {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.apiResponse.collect {
+                        when (it.status) {
+                            ApiStatus.LOADING -> {}
+                            ApiStatus.SUCCESS -> {}
+                            ApiStatus.ERROR -> {
 //                                disconnect(it)
 //                                load.setResponse(it.message ?: return@collect)
 
-                                }
-                                else -> {}
                             }
-
+                            else -> {}
                         }
+
                     }
-//                    launch {
-//                        //TODO The different between collect and collect latest
-//                        viewModel.listNote.collectLatest { listNote ->
-//                            adapterNote.submitList(listNote)
-//                            dataNote.clear()
-//                            dataNote.addAll(listNote)
-//                        }
-//                    }
+                }
+                launch {
+                    viewModel.listDoctor.collectLatest { listDoctor ->
+                        adapterDoctor.submitList(listDoctor)
+                        dataDoctor.clear()
+                        dataDoctor.addAll(listDoctor)
+                    }
+                }
+                launch {
+                    userDao.getUser().collect {
+                        binding?.user = it
+                    }
                 }
             }
         }
+    }
 
+    private fun search() {
+        binding?.etSearch?.doOnTextChanged { text, _, _, _ ->
+            if (text!!.isNotEmpty()) {
+                val filter = dataDoctor.filter {
+                    it?.name?.contains(
+                        "$text",
+                        true
+                    ) == true
+                }
+                adapterDoctor.submitList(filter)
+
+//                if (filter.isEmpty()) {
+//                    binding!!.tvNoteNotFound.visibility = View.VISIBLE
+//                } else {
+//                    binding!!.tvNoteNotFound.visibility = View.GONE
+//                }
+            } else {
+                adapterDoctor.submitList(dataDoctor)
+            }
+        }
+    }
 
 
     private fun getDoctor() {

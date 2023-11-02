@@ -2,6 +2,7 @@ package com.bennohan.mydoctorapp.data
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.bennohan.mydoctorapp.data.user.User
 import com.crocodic.core.data.CoreDao
 import kotlinx.coroutines.flow.Flow
 
