@@ -1,4 +1,4 @@
-package com.bennohan.mydoctorapp.ui.history
+package com.bennohan.mydoctorapp.ui.save
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,22 +9,22 @@ import androidx.fragment.app.activityViewModels
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.UserDao
-import com.bennohan.mydoctorapp.databinding.FragmentHistoryBinding
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
+import com.bennohan.mydoctorapp.databinding.FragmentSaveBinding
 import com.bennohan.mydoctorapp.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_history) {
+class SaveFragment : BaseFragment<FragmentSaveBinding>(R.layout.fragment_home) {
 
     @Inject
     lateinit var userDao: UserDao
-    private val viewModel by activityViewModels<HistoryViewModel>()
+    private val viewModel by activityViewModels<SaveViewModel>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -32,8 +32,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        return inflater.inflate(R.layout.fragment_save, container, false)
     }
-
 
 }

@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="user"
-            type="com.bennohan.mydoctorapp.data.user.User" />
-    </data>
-
+<layout>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/home_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.save.SaveFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +25,6 @@
 
 
                 <ImageView
-                    android:id="@+id/iv_profile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="@string/image_profile"
@@ -45,7 +37,6 @@
                     android:layout_marginStart="20dp"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:text='@{user.name}'
                     android:textStyle="bold"
                     tools:text="User Name Here" />
 
@@ -61,46 +52,11 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/etSearch"
-                        android:layout_width="0dp"
-                        android:background="@drawable/edittext_search_background"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:autofillHints="username"
-                        android:drawableStart="@drawable/ic_baseline_search_grey"
-                        android:drawablePadding="8dp"
-                        android:hint="Search"
-                        android:inputType="text"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp" />
-
-                    <ImageButton
-                        android:id="@+id/btn_filter"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@drawable/edittext_search_background"
-                        android:src="@drawable/icon_filter" />
-                </LinearLayout>
-
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/iv_sliderBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/dokter_sebelumnya"
+                    android:text="@string/saved_doctor"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -109,13 +65,12 @@
                     android:id="@+id/rv_doctorSebelumnya"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginTop="20dp"
                     tools:listitem="@layout/item_doctor" />
 
             </LinearLayout>
 
         </LinearLayout>
+
     </FrameLayout>
 </layout>

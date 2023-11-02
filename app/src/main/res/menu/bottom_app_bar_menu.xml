@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_favourite"
         android:icon="@drawable/ic_baseline_bookmarks_24"
-        android:title="@string/favourite"
+        android:title="@string/saved"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_home"

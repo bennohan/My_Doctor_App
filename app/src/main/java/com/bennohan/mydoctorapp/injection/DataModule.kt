@@ -85,7 +85,8 @@ class DataModule {
     @Provides
     fun provideApiService(okHttpClient: OkHttpClient): ApiService {
         return Retrofit.Builder()
-            .baseUrl("http://magang.crocodic.net/ki/IlhamM/docter-reservation/public/api/")
+//            .baseUrl("http://magang.crocodic.net/ki/IlhamM/docter-reservation/public/api/")
+            .baseUrl(com.bennohan.mydoctorapp.BuildConfig.BUILD_TYPE)
             .addConverterFactory(ScalarsConverterFactory.create())
             .client(okHttpClient)
             .build().create(ApiService::class.java)

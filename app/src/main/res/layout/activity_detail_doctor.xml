@@ -3,17 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="user"
-            type="com.bennohan.mydoctorapp.data.user.User" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        tools:context=".ui.profile.ProfileActivity">
+        tools:context=".ui.detailDoctor.DetailDoctorActivity">
+
+        <ImageView
+            android:id="@+id/iv_profileDoctor"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/btn_back"
@@ -25,16 +24,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_profile"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="80dp"
-            android:contentDescription="@string/image_profile"
-            android:src="@drawable/ic_baseline_person_black"
+        <ImageButton
+            android:id="@+id/btn_save"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@null"
+            android:contentDescription="@string/button_back"
+            android:src="@drawable/ic_baseline_bookmark_border_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
@@ -43,15 +40,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/iv_profile">
+            app:layout_constraintTop_toBottomOf="@id/iv_profileDoctor">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_baseline_person_black" />
 
             <LinearLayout
+                android:id="@+id/linear_name"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
@@ -70,21 +69,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
-                    android:text='@{user.name}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/layoutEmail"
+            android:id="@+id/layout_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -92,9 +86,52 @@
             app:layout_constraintTop_toBottomOf="@id/layout_name">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_category_24" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category Doctor"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_doctorCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/person_name"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_category">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_baseline_email_24" />
 
             <LinearLayout
@@ -112,35 +149,73 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_email"
+                    android:id="@+id/tv_doctorEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
-                    android:text='@{user.email}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/layoutPhone"
+            android:id="@+id/layout_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/layoutEmail">
+            app:layout_constraintTop_toBottomOf="@id/layout_email">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_home_24" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_doctorAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/person_name"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_address">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_baseline_phone_24" />
 
             <LinearLayout
@@ -158,36 +233,32 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_phone"
+                    android:id="@+id/tv_doctorPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
-                    android:text='@{user.phone}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/layout_kecamatan"
+            android:id="@+id/layout_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/layoutPhone">
+            app:layout_constraintTop_toBottomOf="@id/layout_phone">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_baseline_apartment_24" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_baseline_description_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -198,13 +269,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/kecamatan"
+                    android:text="Description"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_kecamatan"
+                    android:id="@+id/tv_doctorDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
@@ -213,20 +284,17 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_color_red"
-            android:text="Logout"
+            android:text="@string/buat_janji_temu"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold"

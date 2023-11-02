@@ -32,4 +32,8 @@
     <string name="home">Home</string>
     <string name="button_back">Button Back</string>
     <string name="person_name">Person Name</string>
+    <string name="saved_doctor">Saved Doctor</string>
+    <string name="saved">Saved</string>
+    <string name="address">Address</string>
+    <string name="buat_janji_temu">Buat Janji Temu</string>
 </resources>

@@ -1,7 +1,9 @@
 package com.bennohan.mydoctorapp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -13,8 +15,10 @@ import com.bennohan.mydoctorapp.data.Doctor
 import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
+import com.bennohan.mydoctorapp.ui.profile.ProfileActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -66,6 +70,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.rvDoctorSebelumnya?.adapter = adapterDoctor
+
+        binding?.btnFilter?.setOnClickListener {
+            showBottomSheetDialog()
+        }
+
+        binding?.ivProfile?.setOnClickListener {
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+
+        }
 
         getDoctor()
         observe()
@@ -132,6 +146,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun getDoctor() {
         viewModel.getDoctor()
+    }
+
+    private fun showBottomSheetDialog() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.dialog_filter, null)
+
+        // Find and set up UI components inside the bottom sheet layout
+        val buttonInsideDialog = view.findViewById<Button>(R.id.btn_dialog_filter)
+
+        buttonInsideDialog.setOnClickListener {
+            //Get List Destination By Category
+            // Handle button click inside the bottom sheet dialog
+            bottomSheetDialog.dismiss() // Close the dialog if needed
+
+        }
+
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.show()
     }
 
 //    override fun onCreateView(
