@@ -27,9 +27,10 @@ class RegisterViewModel @Inject constructor(
         phone: String,
         password: String,
         passwordConfirmation: String,
+        subdistrictId: String,
     ) = viewModelScope.launch {
         _apiResponse.emit(ApiResponse().responseLoading())
-        ApiObserver({ apiService.register(name, email, phone, password, passwordConfirmation) },
+        ApiObserver({ apiService.register(name, email, phone, password, passwordConfirmation,subdistrictId) },
             false,
             object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {

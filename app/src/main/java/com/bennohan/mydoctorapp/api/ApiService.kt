@@ -24,6 +24,7 @@ interface ApiService {
         @Field("phone") phone: String?,
         @Field("password") password: String?,
         @Field("password_confirmation") passwordConfirmation: String?,
+        @Field("subdistrict_id") subdistrictId: String?,
     ): String
 
     @GET("auth/me")

@@ -1,6 +1,5 @@
 package com.bennohan.mydoctorapp.ui.register
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
@@ -119,7 +118,7 @@ class RegisterActivity :
             return
         }
 
-        viewModel.register(name, email, phone, password, confirmPassword)
+//        viewModel.register(name, email, phone, password, confirmPassword)
         tos("$name,$phone$kecamatan,$email,$password,$confirmPassword")
     }
 

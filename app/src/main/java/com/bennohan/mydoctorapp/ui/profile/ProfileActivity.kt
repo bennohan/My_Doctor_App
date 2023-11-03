@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProfileActivity : BaseActivity<ActivityProfileBinding , ProfileViewModel>(R.layout.activity_profile) {
+class ProfileActivity :
+    BaseActivity<ActivityProfileBinding, ProfileViewModel>(R.layout.activity_profile) {
 
     @Inject
     lateinit var userDao: UserDao
@@ -31,34 +32,34 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding , ProfileViewModel>(
     }
 
     private fun observe() {
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    launch {
-                        viewModel.apiResponse.collect {
-                            when (it.status) {
-                                //TODO Loading dialog at fragment
-                                ApiStatus.LOADING -> {}
-                                ApiStatus.SUCCESS -> {
-                                    //TODO Replace it with TOAST
-                                    binding.root?.snacked("Profile Edited")
-                                }
-                                ApiStatus.ERROR -> {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.apiResponse.collect {
+                        when (it.status) {
+                            //TODO Loading dialog at fragment
+                            ApiStatus.LOADING -> {}
+                            ApiStatus.SUCCESS -> {
+                                //TODO Replace it with TOAST
+                                binding.root.snacked("Profile Edited")
+                            }
+                            ApiStatus.ERROR -> {
 //                                loadingDialog.setResponse(it.message ?: return@collect)
 
-                                }
-                                else -> binding.root?.snacked("error")
                             }
-
+                            else -> binding.root.snacked("error")
                         }
+
                     }
-                    launch {
-                        userDao.getUser().collectLatest { user ->
-                            binding.user = user
+                }
+                launch {
+                    userDao.getUser().collectLatest { user ->
+                        binding.user = user
 
-                        }
                     }
                 }
             }
-
         }
+
+    }
 }
