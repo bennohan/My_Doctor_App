@@ -27,6 +27,10 @@ interface ApiService {
         @Field("subdistrict_id") subdistrictId: String?,
     ): String
 
+    @GET("subdistricts/")
+    suspend fun getSubdistricts(
+    ): String
+
     @GET("auth/me")
     suspend fun getProfile(
     ): String

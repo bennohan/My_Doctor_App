@@ -17,7 +17,7 @@ data class Doctor(
     val id: String,
     @Expose
     @SerializedName("images")
-    val images: List<List<String>>,
+    val images: List<String>,
     @Expose
     @SerializedName("name")
     val name: String,
