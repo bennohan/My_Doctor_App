@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_favourite"
+        android:id="@+id/action_saved"
         android:icon="@drawable/ic_baseline_bookmarks_24"
         android:title="@string/saved"
         app:showAsAction="ifRoom" />

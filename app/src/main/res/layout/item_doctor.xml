@@ -9,10 +9,11 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/card_doctor"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.bennohan.mydoctorapp.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.core.widget.doOnTextChanged
@@ -11,10 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
+import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.data.Doctor
 import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
+import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
 import com.bennohan.mydoctorapp.ui.profile.ProfileActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
@@ -47,12 +50,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     holder.binding.data = itm
                     holder.bind(itm)
 
-//                    holder.binding.cardProduct.setOnClickListener {
-//                        openActivity<DetailProductActivity> {
-//                            intent.putExtra(Const.PRODUCT.PRODUCT_ID, item.id)
-//                        }
-//
-//                    }
+                    holder.binding.cardDoctor.setOnClickListener {
+                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
+                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
+                        startActivity(intent)
+                        Log.d("cek id doctor", "${item.id}")
+
+                    }
 
 
                 }

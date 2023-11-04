@@ -1,9 +1,6 @@
 package com.bennohan.mydoctorapp.api
 
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -35,8 +32,17 @@ interface ApiService {
     suspend fun getProfile(
     ): String
 
+    //Doctor
     @GET("docters")
     suspend fun getDoctor(
     ): String
+
+    @GET("docters/{id_docter}")
+    suspend fun getDoctorDetail(
+        @Path("id_docter") idDoctor: String?
+    ): String
+
+    @GET("docters/saved")
+    suspend fun getDoctorSaved(): String
 
 }

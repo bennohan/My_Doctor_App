@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.databinding.ActivityNavigationBinding
+import com.bennohan.mydoctorapp.databinding.FragmentSaveBinding
 import com.bennohan.mydoctorapp.ui.history.HistoryFragment
+import com.bennohan.mydoctorapp.ui.save.SaveFragment
 import com.crocodic.core.base.activity.NoViewModelActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +18,7 @@ class NavigationActivity :
 
     private val historyFragment = HistoryFragment()
     private val homeFragment = HomeFragment()
+    private val savedFragment = SaveFragment()
 
     val fragmentManager = supportFragmentManager
     val fragment = fragmentManager.findFragmentById(R.id.home_fragment) as? HomeFragment
@@ -36,6 +39,10 @@ class NavigationActivity :
                 }
                 R.id.action_history -> {
                     replaceFragment(historyFragment)
+                    true
+                }
+                R.id.action_saved -> {
+                    replaceFragment(savedFragment)
                     true
                 }
                 // Add more cases for each menu item

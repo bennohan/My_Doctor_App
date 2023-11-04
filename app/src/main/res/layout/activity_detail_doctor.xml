@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="data"
+            type="com.bennohan.mydoctorapp.data.Doctor" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,6 +18,7 @@
             android:id="@+id/iv_profileDoctor"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            imageUrl='@{data.photo}'
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -69,6 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
+                    android:text='@{data.name}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -195,6 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
+                    android:text='@{data.address}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
