@@ -36,7 +36,7 @@
                 android:id="@+id/tv_shortBy"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:text="Short By"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -70,7 +70,7 @@
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/background_filter_dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.811" />

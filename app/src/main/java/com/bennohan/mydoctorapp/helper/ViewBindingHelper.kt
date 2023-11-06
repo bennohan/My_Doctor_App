@@ -3,6 +3,7 @@ package com.bennohan.mydoctorapp.helper
 import android.graphics.Bitmap
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bennohan.mydoctorapp.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import java.io.File
@@ -16,15 +17,18 @@ class ViewBindingHelper {
             view.setImageDrawable(null)
 
             if (imageUrl.isNullOrEmpty()) {
-                //Do nothing
-
+                Glide
+                    .with(view.context)
+                    .load(R.drawable.ic_baseline_person_24)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(view)
             } else {
                 imageUrl.let {
                     Glide
                         .with(view.context)
                         .load(imageUrl)
                         .apply(RequestOptions.centerCropTransform())
-//                        .placeholder(R.drawable.ic_baseline_person_24)
+                        .placeholder(R.drawable.ic_baseline_person_24)
                         .into(view)
                 }
 
@@ -40,9 +44,8 @@ class ViewBindingHelper {
             if (imageUrl.isNullOrEmpty()) {
                 Glide
                     .with(view.context)
-                    .load(imageUrl)
+                    .load(R.drawable.ic_baseline_person_24)
                     .apply(RequestOptions.circleCropTransform())
-//                    .placeholder(R.drawable.ic_baseline_person_24)
                     .into(view)
 
 
@@ -52,7 +55,7 @@ class ViewBindingHelper {
                         .with(view.context)
                         .load(imageUrl)
                         .apply(RequestOptions.circleCropTransform())
-//                        .placeholder(R.drawable.ic_baseline_person_24)
+                        .placeholder(R.drawable.ic_baseline_person_24)
                         .into(view)
 
                 }

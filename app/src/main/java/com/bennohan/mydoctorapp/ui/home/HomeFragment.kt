@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -14,6 +17,7 @@ import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.data.Doctor
+import com.bennohan.mydoctorapp.data.Subdistrict
 import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
@@ -26,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -34,6 +39,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     lateinit var userDao: UserDao
     private val viewModel by activityViewModels<HomeViewModel>()
     private var dataDoctor = ArrayList<Doctor?>()
+    private var dataSubdistrict = ArrayList<Subdistrict?>()
+    private var subdistrictsId: String? = null
 
 
     private val adapterDoctor by lazy {
@@ -88,6 +95,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         getDoctor()
         observe()
         search()
+        viewModel.getSubdistricts()
+
 
     }
 
@@ -119,6 +128,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 launch {
                     userDao.getUser().collect {
                         binding?.user = it
+                    }
+                }
+                launch {
+                    viewModel.listSubdistrict.collectLatest {
+                        dataSubdistrict.clear()
+                        dataSubdistrict.addAll(it)
+
                     }
                 }
             }
@@ -156,6 +172,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.dialog_filter, null)
 
+        val autoCompleteSpinner = view.findViewById<AutoCompleteTextView>(R.id.dropdown_category)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            dataSubdistrict
+        )
+        autoCompleteSpinner.setAdapter(adapter)
+//        binding.textInputKecamatan.setTextColor(ContextCompat.getColor(this,R.color.black))
+
+
+        // Show the dropdown list when the AutoCompleteTextView is clicked
+        autoCompleteSpinner.setOnClickListener {
+            autoCompleteSpinner.showDropDown()
+            autoCompleteSpinner.dropDownVerticalOffset = -autoCompleteSpinner.height
+
+        }
+
+        autoCompleteSpinner.setOnItemClickListener { _, _, position, _ ->
+            // Handle item selection here
+            val selectedItem = dataSubdistrict[position]
+            subdistrictsId = selectedItem?.id
+
+
+        }
+
+
         // Find and set up UI components inside the bottom sheet layout
         val buttonInsideDialog = view.findViewById<Button>(R.id.btn_dialog_filter)
 
@@ -170,12 +212,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         bottomSheetDialog.show()
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home, container, false)
-//    }
 
 }

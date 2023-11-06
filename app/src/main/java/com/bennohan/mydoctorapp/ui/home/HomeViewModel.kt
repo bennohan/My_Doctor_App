@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.base.BaseViewModel
 import com.bennohan.mydoctorapp.data.Doctor
+import com.bennohan.mydoctorapp.data.Subdistrict
 import com.bennohan.mydoctorapp.data.UserDao
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
@@ -31,6 +32,9 @@ class HomeViewModel  @Inject constructor(
     private var _listDoctor = MutableSharedFlow<List<Doctor?>>()
     var listDoctor = _listDoctor.asSharedFlow()
 
+    private var _listSubdistrict = MutableSharedFlow<List<Subdistrict?>>()
+    var listSubdistrict = _listSubdistrict.asSharedFlow()
+
     fun getDoctor(
     ) = viewModelScope.launch {
         ApiObserver({ apiService.getDoctor() },
@@ -51,5 +55,27 @@ class HomeViewModel  @Inject constructor(
                 }
             })
     }
+
+    fun getSubdistricts(
+    ) = viewModelScope.launch {
+        ApiObserver({ apiService.getSubdistricts() },
+            false,
+            object : ApiObserver.ResponseListener {
+                override suspend fun onSuccess(response: JSONObject) {
+                    val data = response.getJSONArray(ApiCode.DATA).toList<Subdistrict>(gson)
+                    _listSubdistrict.emit(data)
+                    _apiResponse.emit(ApiResponse().responseSuccess())
+
+                }
+
+                override suspend fun onError(response: ApiResponse) {
+                    super.onError(response)
+
+                    _apiResponse.emit(ApiResponse().responseError())
+
+                }
+            })
+    }
+
 
 }

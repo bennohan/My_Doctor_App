@@ -1,6 +1,8 @@
 package com.bennohan.mydoctorapp.ui.profile
 
+import android.app.Dialog
 import android.os.Bundle
+import android.widget.Button
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -8,7 +10,9 @@ import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.ActivityProfileBinding
+import com.bennohan.mydoctorapp.ui.login.LoginActivity
 import com.crocodic.core.api.ApiStatus
+import com.crocodic.core.extension.openActivity
 import com.crocodic.core.extension.snacked
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -28,6 +32,29 @@ class ProfileActivity :
 
 
         observe()
+        binding.btnLogout.setOnClickListener {
+            logoutDialog()
+        }
+
+    }
+
+    private fun logoutDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_logout)
+
+        val buttonLogout = dialog.findViewById<Button>(R.id.btn_dialog_logout)
+        val buttonCancel = dialog.findViewById<Button>(R.id.btn_dialog_cancel)
+//
+        buttonLogout.setOnClickListener {
+            viewModel.logout()
+        }
+
+        buttonCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
 
     }
 
@@ -40,8 +67,19 @@ class ProfileActivity :
                             //TODO Loading dialog at fragment
                             ApiStatus.LOADING -> {}
                             ApiStatus.SUCCESS -> {
+                                when(it.message){
+                                    "Profile Edited" -> {
+                                        binding.root.snacked("Profile Edited")
+
+                                    }
+                                    "Logout" -> {
+                                        openActivity<LoginActivity> {
+                                            userDao.deleteAll()
+                                            finishAffinity()
+                                        }
+                                    }
+                                }
                                 //TODO Replace it with TOAST
-                                binding.root.snacked("Profile Edited")
                             }
                             ApiStatus.ERROR -> {
 //                                loadingDialog.setResponse(it.message ?: return@collect)

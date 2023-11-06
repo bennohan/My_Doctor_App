@@ -24,6 +24,9 @@ interface ApiService {
         @Field("subdistrict_id") subdistrictId: String?,
     ): String
 
+    @DELETE("auth/logout")
+    suspend fun logout(): String
+
     @GET("subdistricts/")
     suspend fun getSubdistricts(
     ): String
@@ -44,5 +47,14 @@ interface ApiService {
 
     @GET("docters/saved")
     suspend fun getDoctorSaved(): String
+
+    //Reservation
+    @FormUrlEncoded
+    @POST("reservations/")
+    suspend fun createReservation(
+        @Field("docter_id") doctorId: String?,
+        @Field("time_reservation") timeReservation: String?,
+        @Field("remarks") remarksNote: String?,
+    ): String
 
 }
