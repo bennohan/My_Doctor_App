@@ -31,6 +31,7 @@
 
 
                 <ImageView
+                    android:id="@+id/iv_profile"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="@string/image_profile"
@@ -76,6 +77,18 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_marginTop="20dp"
                     tools:listitem="@layout/item_doctor" />
+
+                <TextView
+                    android:id="@+id/tv_adapterEmpty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Anda Belum Pernah Memesan Dokter"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold"/>
+
 
             </LinearLayout>
 

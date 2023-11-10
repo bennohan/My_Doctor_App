@@ -1,36 +1,47 @@
 package com.bennohan.mydoctorapp.ui.login
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
+import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.databinding.ActivityLoginBinding
-import com.bennohan.mydoctorapp.ui.home.HomeActivity
 import com.bennohan.mydoctorapp.ui.home.NavigationActivity
 import com.bennohan.mydoctorapp.ui.register.RegisterActivity
 import com.crocodic.core.api.ApiStatus
+import com.crocodic.core.data.CoreSession
 import com.crocodic.core.extension.isEmptyRequired
 import com.crocodic.core.extension.openActivity
 import com.crocodic.core.extension.textOf
 import com.crocodic.core.extension.tos
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout.activity_login) {
+
+    @Inject
+    lateinit var session: CoreSession
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //Calling Function
         observe()
         tvRegisterOption()
+        generateFcmToken {  }
 
 
         binding.btnLogin.setOnClickListener {
@@ -64,6 +75,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
         binding.btnLogin.setOnClickListener {
             viewModel.login(emailPhone, password)
         }
+    }
+
+    private fun generateFcmToken ( result:( Boolean )-> Unit) {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+//                Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
+                result(false)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            //todo: menerima hasil tugas fcmnya
+            val token = task.result
+
+            // Log and toast
+            val msg = getString(R.string.msg_token_fmt, token) //todo:untuk menegecek aja
+            Log.d(ContentValues.TAG, token)
+//            session.setValue(Const.TOKEN.DEVICE_TOKEN, token)
+            session.setValue(Const.TOKEN.DEVICE_TOKEN, token)
+            result(true)
+        })
     }
 
     //Observing Api Response Function

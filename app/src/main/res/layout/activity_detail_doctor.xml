@@ -37,7 +37,8 @@
             android:layout_height="35dp"
             android:background="@null"
             android:contentDescription="@string/button_back"
-            android:src="@drawable/ic_baseline_bookmark_border_24"
+            tools:src="@drawable/ic_baseline_bookmark_24"
+            android:src='@{data.saveByYou ? @drawable/ic_baseline_bookmark_24 : @drawable/ic_baseline_bookmark_border_24}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -299,7 +300,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnLogout"
+            android:id="@+id/btn_buatJanjiTemu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_color_red"

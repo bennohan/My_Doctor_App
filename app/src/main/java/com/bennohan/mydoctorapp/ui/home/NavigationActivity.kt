@@ -1,11 +1,9 @@
 package com.bennohan.mydoctorapp.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.databinding.ActivityNavigationBinding
-import com.bennohan.mydoctorapp.databinding.FragmentSaveBinding
 import com.bennohan.mydoctorapp.ui.history.HistoryFragment
 import com.bennohan.mydoctorapp.ui.save.SaveFragment
 import com.crocodic.core.base.activity.NoViewModelActivity
@@ -31,6 +29,7 @@ class NavigationActivity :
         replaceFragment(homeFragment)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigation)
+        bottomNavigationView.selectedItemId = R.id.action_home
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_home -> {

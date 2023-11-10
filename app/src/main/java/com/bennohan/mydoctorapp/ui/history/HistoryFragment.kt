@@ -1,21 +1,23 @@
 package com.bennohan.mydoctorapp.ui.history
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
+import com.bennohan.mydoctorapp.data.Const
+import com.bennohan.mydoctorapp.data.Doctor
 import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentHistoryBinding
-import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
-import com.bennohan.mydoctorapp.ui.home.HomeViewModel
+import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
+import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
 import com.crocodic.core.api.ApiStatus
+import com.crocodic.core.base.adapter.ReactiveListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,6 +29,36 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
     @Inject
     lateinit var userDao: UserDao
     private val viewModel by activityViewModels<HistoryViewModel>()
+
+    private val adapterHistoryOrder by lazy {
+        object : ReactiveListAdapter<ItemDoctorBinding, Doctor>(R.layout.item_doctor) {
+            override fun onBindViewHolder(
+                holder: ItemViewHolder<ItemDoctorBinding, Doctor>,
+                position: Int
+            ) {
+                super.onBindViewHolder(holder, position)
+                val item = getItem(position)
+
+
+                item?.let { itm ->
+                    holder.binding.data = itm
+                    holder.bind(itm)
+
+                    holder.binding.cardDoctor.setOnClickListener {
+                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
+                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
+                        startActivity(intent)
+                        Log.d("cek id doctor", "${item.id}")
+
+                    }
+
+
+                }
+
+            }
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +76,14 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding?.rvDoctorSebelumnya?.adapter = adapterHistoryOrder
         observe()
+        getHistoryOrder()
 
+    }
+
+    private fun getHistoryOrder() {
+        viewModel.getHistoryOrder()
     }
 
     private fun observe() {
@@ -66,13 +104,14 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
 
                     }
                 }
-//                launch {
-//                    viewModel.listDoctorSave.collectLatest { listDoctor ->
-//                        adapterDoctorSaved.submitList(listDoctor)
-////                        dataDoctor.clear()
-////                        dataDoctor.addAll(listDoctor)
-//                    }
-//                }
+                launch {
+                    viewModel.listHistoryOrder.collectLatest { listHistory ->
+                        adapterHistoryOrder.submitList(listHistory)
+                        Log.d("cek history",listHistory.toString())
+//                        dataDoctor.clear()
+//                        dataDoctor.addAll(listDoctor)
+                    }
+                }
                 launch {
                     userDao.getUser().collect {
                         binding?.user = it

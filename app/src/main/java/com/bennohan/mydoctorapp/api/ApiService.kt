@@ -31,6 +31,7 @@ interface ApiService {
     suspend fun getSubdistricts(
     ): String
 
+
     @GET("auth/me")
     suspend fun getProfile(
     ): String
@@ -38,6 +39,18 @@ interface ApiService {
     //Doctor
     @GET("docters")
     suspend fun getDoctor(
+    ): String
+
+    @GET("reservations")
+    suspend fun getHistory(
+    ): String
+
+    @GET("docters/categories/")
+    suspend fun getCategories(
+    ): String
+
+    @GET("promo-banners/")
+    suspend fun getBanner(
     ): String
 
     @GET("docters/{id_docter}")
@@ -56,5 +69,12 @@ interface ApiService {
         @Field("time_reservation") timeReservation: String?,
         @Field("remarks") remarksNote: String?,
     ): String
+
+    @FormUrlEncoded
+    @POST("docters/saved")
+    suspend fun saveUnsave(
+        @Field("docter_id") doctorId: String?,
+    ): String
+
 
 }

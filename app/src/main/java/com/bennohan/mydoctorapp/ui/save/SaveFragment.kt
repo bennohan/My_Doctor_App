@@ -3,10 +3,7 @@ package com.bennohan.mydoctorapp.ui.save
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,11 +13,10 @@ import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.data.Doctor
 import com.bennohan.mydoctorapp.data.UserDao
-import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.FragmentSaveBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
 import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
-import com.bennohan.mydoctorapp.ui.home.HomeViewModel
+import com.bennohan.mydoctorapp.ui.profile.ProfileActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +39,6 @@ class SaveFragment : BaseFragment<FragmentSaveBinding>(R.layout.fragment_save) {
             ) {
                 super.onBindViewHolder(holder, position)
                 val item = getItem(position)
-
 
                 item?.let { itm ->
                     holder.binding.data = itm
@@ -84,6 +79,10 @@ class SaveFragment : BaseFragment<FragmentSaveBinding>(R.layout.fragment_save) {
         binding?.rvDoctorSaved?.adapter = adapterDoctorSaved
         getDoctor()
         observe()
+        binding?.ivProfile?.setOnClickListener {
+            val intent = Intent(requireContext(), ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -108,7 +107,13 @@ class SaveFragment : BaseFragment<FragmentSaveBinding>(R.layout.fragment_save) {
                 launch {
                     viewModel.listDoctorSave.collectLatest { listDoctor ->
                         adapterDoctorSaved.submitList(listDoctor)
-//                        dataDoctor.clear()
+                        Log.d("cek isian", "$listDoctor")
+                        if (listDoctor.isEmpty()) {
+                            binding?.tvAdapterEmpty?.visibility = View.VISIBLE
+                        } else {
+                            binding?.tvAdapterEmpty?.visibility = View.GONE
+                        }
+                        //                        dataDoctor.clear()
 //                        dataDoctor.addAll(listDoctor)
                     }
                 }

@@ -9,7 +9,6 @@ import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
 import com.crocodic.core.data.CoreSession
-import com.crocodic.core.extension.toList
 import com.crocodic.core.extension.toObject
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +29,9 @@ class DetailDoctorViewModel @Inject constructor(
     private var _detailDoctor = MutableSharedFlow<Doctor?>()
     var detailDoctor = _detailDoctor.asSharedFlow()
 
+    private var _doctorLike : String? = null
+    var doctorLike = _doctorLike
+
     fun getDoctor(
         idDoctor: String,
         ) = viewModelScope.launch {
@@ -40,6 +42,49 @@ class DetailDoctorViewModel @Inject constructor(
                     val data = response.getJSONObject(ApiCode.DATA).toObject<Doctor>(gson)
                     _detailDoctor.emit(data)
                     _apiResponse.emit(ApiResponse().responseSuccess())
+
+                }
+
+                override suspend fun onError(response: ApiResponse) {
+                    super.onError(response)
+
+                    _apiResponse.emit(ApiResponse().responseError())
+
+                }
+            })
+    }
+    fun saveDoctor(
+        idDoctor: String,
+        ) = viewModelScope.launch {
+        ApiObserver({ apiService.saveUnsave(idDoctor) },
+            false,
+            object : ApiObserver.ResponseListener {
+                override suspend fun onSuccess(response: JSONObject) {
+                    _apiResponse.emit(ApiResponse().responseSuccess("Saved"))
+                    val likeDisliked = response.getJSONObject(ApiCode.DATA).getString("status_favorite")
+//                    _doctorLike = likeDisliked
+
+                }
+
+                override suspend fun onError(response: ApiResponse) {
+                    super.onError(response)
+
+                    _apiResponse.emit(ApiResponse().responseError())
+
+                }
+            })
+    }
+
+    fun createReservations(
+        idDoctor: String,
+        timeReservation : String,
+        remarksNote : String
+        ) = viewModelScope.launch {
+        ApiObserver({ apiService.createReservation(idDoctor,timeReservation,remarksNote) },
+            false,
+            object : ApiObserver.ResponseListener {
+                override suspend fun onSuccess(response: JSONObject) {
+                    _apiResponse.emit(ApiResponse().responseSuccess("Reservation Created"))
 
                 }
 

@@ -18,4 +18,8 @@ data class Category(
     @Expose
     @SerializedName("updated_at")
     val updated_at: String
-)
+){
+    override fun toString(): String {
+        return name.toString()
+    }
+}

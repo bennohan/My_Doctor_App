@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="user"
             type="com.bennohan.mydoctorapp.data.user.User" />
@@ -37,25 +38,59 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_profileNew"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="80dp"
+            android:contentDescription="@string/image_profile"
+            android:src="@drawable/ic_baseline_person_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="110dp"
+            app:cardCornerRadius="100dp"
+            android:backgroundTint="#D4D4D4"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+            app:layout_constraintEnd_toEndOf="@+id/iv_profile"
+            app:layout_constraintStart_toStartOf="@+id/iv_profile"
+            app:layout_constraintTop_toTopOf="@+id/iv_profile">
+
+            <ImageButton
+                android:id="@+id/btnEditPhoto"
+                android:layout_width="30dp"
+                android:src="@drawable/ic_baseline_edit_grey"
+                android:layout_height="30dp" />
+
+        </androidx.cardview.widget.CardView>
+
+
         <LinearLayout
             android:id="@+id/layout_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/iv_profile">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:contentDescription="@string/icon_nama"
                 android:src="@drawable/ic_baseline_person_black" />
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,39 +104,43 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{user.name}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/btn_editNama"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/button_edit"
                 android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layoutEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_name">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:contentDescription="@string/icon_email"
                 android:src="@drawable/ic_baseline_email_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,39 +154,43 @@
                     android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{user.email}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/btn_editEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/button_edit"
                 android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layoutPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layoutEmail">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:contentDescription="@string/icon_phone"
                 android:src="@drawable/ic_baseline_phone_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -161,39 +204,43 @@
                     android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{user.phone}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/btn_editTelephone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/button_edit"
                 android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_kecamatan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layoutPhone">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
+                android:contentDescription="@string/icon_kecamatan"
                 android:src="@drawable/ic_baseline_apartment_24" />
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,30 +254,44 @@
                     android:id="@+id/tv_kecamatan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/button_edit"
                 android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/text_green"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogout" />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:background="@color/main_color_red"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

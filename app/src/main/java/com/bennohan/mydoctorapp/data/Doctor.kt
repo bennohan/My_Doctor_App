@@ -26,5 +26,11 @@ data class Doctor(
     val photo: String,
     @Expose
     @SerializedName("subdistrict")
-    val subdistrict: Subdistrict
-)
+    val subdistrict: Subdistrict,
+    @Expose
+    @SerializedName("status_opration")
+    val statusOperation: Boolean,
+    @Expose
+    @SerializedName("save_by_you")
+    val saveByYou: Boolean,
+    )

@@ -36,4 +36,13 @@
     <string name="saved">Saved</string>
     <string name="address">Address</string>
     <string name="buat_janji_temu">Buat Janji Temu</string>
+    <string name="save">Save</string>
+    <string name="masukan_nama">Masukan Nama</string>
+    <string name="button_edit">Button Edit</string>
+    <string name="msg_token_fmt" formatted="true"> %s Token Confirmed</string>
+    <string name="icon_nama">Icon Nama</string>
+    <string name="icon_email">Icon Email</string>
+    <string name="icon_phone">Icon Phone</string>
+    <string name="icon_kecamatan">Icon Kecamatan</string>
+    <string name="logout">Logout</string>
 </resources>

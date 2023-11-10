@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -15,23 +14,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
-import com.bennohan.mydoctorapp.data.Const
-import com.bennohan.mydoctorapp.data.Doctor
-import com.bennohan.mydoctorapp.data.Subdistrict
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.*
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
 import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
 import com.bennohan.mydoctorapp.ui.profile.ProfileActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
+import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
+//TODO PAKE FILTER PAKE OPTION BUKAN AUTOCOMPLETE
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -40,7 +37,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by activityViewModels<HomeViewModel>()
     private var dataDoctor = ArrayList<Doctor?>()
     private var dataSubdistrict = ArrayList<Subdistrict?>()
+    private var dataCategory = ArrayList<Category?>()
     private var subdistrictsId: String? = null
+    val imageBannerList = ArrayList<BannerSlider>()
 
 
     private val adapterDoctor by lazy {
@@ -95,8 +94,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         getDoctor()
         observe()
         search()
-        viewModel.getSubdistricts()
+        imageSlider()
+        viewModel.getCategories()
 
+
+    }
+
+    private fun imageSlider() {
+        val imageList = ArrayList<SlideModel>()
+        imageBannerList.forEach {
+            imageList.add(SlideModel(it.photo))
+        }
+//        val ivSlider = find
+        binding?.ivSliderBanner?.setImageList(imageList)
+        Log.d("cek image slider","$imageList")
 
     }
 
@@ -137,9 +148,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                     }
                 }
+                launch {
+                    viewModel.listCategory.collectLatest {
+                        dataCategory.clear()
+                        dataCategory.addAll(it)
+                    }
+                }
+                launch {
+                    viewModel.listBannerSlider.collectLatest {
+                        imageBannerList.clear()
+                        imageBannerList.addAll(it)
+                    }
+                }
             }
         }
     }
+
+//    private fun initSlider(data: List<ImageSlide>) {
+//        val imageList = ArrayList<SlideModel>()
+//        data.forEach {
+//            imageList.add(SlideModel(it.imageS))
+//        }
+//        binding.imageSlider.setImageList(imageList, ScaleTypes.CENTER_CROP)
+//    }
+
 
     private fun search() {
         binding?.etSearch?.doOnTextChanged { text, _, _, _ ->
@@ -176,7 +208,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
-            dataSubdistrict
+            dataCategory
         )
         autoCompleteSpinner.setAdapter(adapter)
 //        binding.textInputKecamatan.setTextColor(ContextCompat.getColor(this,R.color.black))
@@ -186,12 +218,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         autoCompleteSpinner.setOnClickListener {
             autoCompleteSpinner.showDropDown()
             autoCompleteSpinner.dropDownVerticalOffset = -autoCompleteSpinner.height
-
         }
 
         autoCompleteSpinner.setOnItemClickListener { _, _, position, _ ->
             // Handle item selection here
-            val selectedItem = dataSubdistrict[position]
+            val selectedItem = dataDoctor[position]
             subdistrictsId = selectedItem?.id
 
 
