@@ -2,10 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="data"
-            type="com.bennohan.mydoctorapp.data.Doctor" />
+            type="com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -23,7 +24,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                imageUrl='@{data.photo}'
+                imageUrl='@{data.docter.photo}'
                 tools:src="@drawable/ic_baseline_person_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 tools:text="Dr Name"
-                android:text='@{data.name}'
+                android:text='@{data.docter.name}'
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -48,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 tools:text="Dr Categories"
-                android:text='@{data.category.name}'
+                android:text='@{data.docter.category.name}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/tv_doctorName" />
@@ -60,7 +61,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 tools:text="Jatisari Permai Blok C10/7 Mijen, Semarang"
-                android:text='@{data.address}'
+                android:text='@{data.docter.address}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/tv_doctorCategory" />

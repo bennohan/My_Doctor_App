@@ -13,8 +13,10 @@ import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.data.Doctor
 import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation
 import com.bennohan.mydoctorapp.databinding.FragmentHistoryBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
+import com.bennohan.mydoctorapp.databinding.ItemHistoryBinding
 import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
@@ -31,9 +33,9 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
     private val viewModel by activityViewModels<HistoryViewModel>()
 
     private val adapterHistoryOrder by lazy {
-        object : ReactiveListAdapter<ItemDoctorBinding, Doctor>(R.layout.item_doctor) {
+        object : ReactiveListAdapter<ItemHistoryBinding, HistoryReservation>(R.layout.item_history) {
             override fun onBindViewHolder(
-                holder: ItemViewHolder<ItemDoctorBinding, Doctor>,
+                holder: ItemViewHolder<ItemHistoryBinding, HistoryReservation>,
                 position: Int
             ) {
                 super.onBindViewHolder(holder, position)
@@ -44,13 +46,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                     holder.binding.data = itm
                     holder.bind(itm)
 
-                    holder.binding.cardDoctor.setOnClickListener {
-                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
-                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
-                        startActivity(intent)
+//                    holder.binding.cardDoctor.setOnClickListener {
+//                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
+//                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
+//                        startActivity(intent)
                         Log.d("cek id doctor", "${item.id}")
 
-                    }
+//                    }
 
 
                 }

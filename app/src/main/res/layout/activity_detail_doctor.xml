@@ -120,6 +120,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
+                    android:text='@{data.category.name}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -162,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
+                    android:text='@{data.email}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -247,6 +249,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="@string/person_name"
+                    android:text='@{data.phone}'
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -303,14 +306,16 @@
             android:id="@+id/btn_buatJanjiTemu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/main_color_red"
+            android:layout_marginBottom="16dp"
+            tools:background="@color/main_color_red"
+            android:background='@{data.statusOperation ? @color/main_color_red : @color/grey}'
             android:text="@string/buat_janji_temu"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
 

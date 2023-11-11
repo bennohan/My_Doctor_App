@@ -25,6 +25,12 @@ data class Doctor(
     @SerializedName("photo")
     val photo: String,
     @Expose
+    @SerializedName("email")
+    val email: String?,
+    @Expose
+    @SerializedName("phone")
+    val phone: String?,
+    @Expose
     @SerializedName("subdistrict")
     val subdistrict: Subdistrict,
     @Expose

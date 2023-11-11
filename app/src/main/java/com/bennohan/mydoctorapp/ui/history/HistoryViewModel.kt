@@ -5,6 +5,7 @@ import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.base.BaseViewModel
 import com.bennohan.mydoctorapp.data.Doctor
 import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
@@ -26,7 +27,7 @@ class HistoryViewModel @Inject constructor(
     private val userDao: UserDao
 ) :  BaseViewModel() {
 
-    private var _listHistoryOrder = MutableSharedFlow<List<Doctor?>>()
+    private var _listHistoryOrder = MutableSharedFlow<List<HistoryReservation?>>()
     var listHistoryOrder = _listHistoryOrder.asSharedFlow()
 
     private var _doctorData = MutableSharedFlow<Doctor?>()
@@ -40,7 +41,7 @@ class HistoryViewModel @Inject constructor(
             false,
             object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
-                    val data = response.getJSONArray(ApiCode.DATA).toList<Doctor>(gson)
+                    val data = response.getJSONArray(ApiCode.DATA).toList<HistoryReservation>(gson)
 //                    val dataDoctor = response.getJSONArray(ApiCode.DATA)
                     _listHistoryOrder.emit(data)
                     _apiResponse.emit(ApiResponse().responseSuccess())
