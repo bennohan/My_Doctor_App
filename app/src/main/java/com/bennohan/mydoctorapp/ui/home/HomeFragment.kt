@@ -12,11 +12,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.RecyclerView
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.*
 import com.bennohan.mydoctorapp.databinding.FragmentHomeBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
+import com.bennohan.mydoctorapp.databinding.ItemDoctorCategoryBinding
+import com.bennohan.mydoctorapp.databinding.ItemKecamatanBinding
 import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
 import com.bennohan.mydoctorapp.ui.profile.ProfileActivity
 import com.crocodic.core.api.ApiStatus
@@ -72,6 +75,65 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
+    private val adapterKecamatan by lazy {
+        object : ReactiveListAdapter<ItemKecamatanBinding, Subdistrict>(R.layout.item_kecamatan) {
+            override fun onBindViewHolder(
+                holder: ItemViewHolder<ItemKecamatanBinding, Subdistrict>,
+                position: Int
+            ) {
+                super.onBindViewHolder(holder, position)
+                val item = getItem(position)
+
+
+                item?.let { itm ->
+                    holder.binding.kecamatan = itm
+                    holder.bind(itm)
+
+//                    holder.binding.cardDoctor.setOnClickListener {
+//                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
+//                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
+//                        startActivity(intent)
+//                        Log.d("cek id doctor", "${item.id}")
+//
+//                    }
+
+
+                }
+
+            }
+
+        }
+    }
+    private val adapterCategoryDoctor by lazy {
+        object : ReactiveListAdapter<ItemDoctorCategoryBinding, Category>(R.layout.item_doctor_category) {
+            override fun onBindViewHolder(
+                holder: ItemViewHolder<ItemDoctorCategoryBinding, Category>,
+                position: Int
+            ) {
+                super.onBindViewHolder(holder, position)
+                val item = getItem(position)
+
+
+                item?.let { itm ->
+                    holder.binding.category = itm
+                    holder.bind(itm)
+
+//                    holder.binding.cardDoctor.setOnClickListener {
+//                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
+//                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
+//                        startActivity(intent)
+//                        Log.d("cek id doctor", "${item.id}")
+//
+//                    }
+
+
+                }
+
+            }
+
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -96,7 +158,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         search()
         imageSlider()
         viewModel.getCategories()
-
+        viewModel.getSubdistricts()
+        viewModel.getBannerSlider()
 
     }
 
@@ -143,6 +206,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
                 launch {
                     viewModel.listSubdistrict.collectLatest {
+                        adapterKecamatan.submitList(it)
                         dataSubdistrict.clear()
                         dataSubdistrict.addAll(it)
 
@@ -150,6 +214,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
                 launch {
                     viewModel.listCategory.collectLatest {
+                        adapterCategoryDoctor.submitList(it)
                         dataCategory.clear()
                         dataCategory.addAll(it)
                     }
@@ -205,12 +270,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val view = layoutInflater.inflate(R.layout.dialog_filter, null)
 
         val autoCompleteSpinner = view.findViewById<AutoCompleteTextView>(R.id.dropdown_category)
+        val rvFilterKecamatan = view.findViewById<RecyclerView>(R.id.rv_kecamatan)
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
             dataCategory
         )
         autoCompleteSpinner.setAdapter(adapter)
+        rvFilterKecamatan.adapter = adapterKecamatan
 //        binding.textInputKecamatan.setTextColor(ContextCompat.getColor(this,R.color.black))
 
 

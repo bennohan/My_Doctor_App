@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
-    <data>
-
-        <variable
-            name="kecamatan"
-            type="com.bennohan.mydoctorapp.data.Subdistrict" />
-    </data>
-
+<data>
+    <variable
+        name="category"
+        type="com.bennohan.mydoctorapp.data.Category" />
+</data>
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
@@ -23,11 +20,11 @@
                 android:id="@+id/tv_kecamatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text='@{category.name}'
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text='@{kecamatan.name}'
                 android:textStyle="bold"
-                tools:text="Kecamatan" />
+                tools:text="Dokter Umum" />
 
         </LinearLayout>
 
