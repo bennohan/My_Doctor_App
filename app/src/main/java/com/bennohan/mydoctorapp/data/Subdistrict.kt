@@ -11,7 +11,8 @@ data class Subdistrict(
     val id: String,
     @Expose
     @SerializedName("name")
-    val name: String
+    val name: String,
+    var selected: Boolean = false
 ) {
     override fun toString(): String {
         return name.toString()

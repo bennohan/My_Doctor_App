@@ -58,13 +58,22 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <AutoCompleteTextView
-                android:id="@+id/dropdown_category"
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/dropdown_category"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:background="@drawable/background_filter_dropdown"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_doctorCategory"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@drawable/background_filter_dropdown"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_doctor_category" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_kecamatan"

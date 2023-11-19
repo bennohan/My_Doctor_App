@@ -42,6 +42,7 @@
             android:id="@+id/iv_profileNew"
             android:layout_width="130dp"
             android:layout_height="130dp"
+            imageUrl='@{user.photo}'
             android:layout_marginTop="80dp"
             android:contentDescription="@string/image_profile"
             android:src="@drawable/ic_baseline_person_black"
@@ -102,9 +103,10 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text='@{user.name}'
+                    android:background="@null"
                     android:textSize="15sp"
                     android:textStyle="bold"
                     tools:text="@string/person_name" />

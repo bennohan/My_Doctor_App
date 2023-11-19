@@ -27,6 +27,34 @@ class ProfileViewModel @Inject constructor(
     private val userDao: UserDao
 ) : BaseViewModel() {
 
+    fun login(
+        emailOrPhone: String,
+        password: String,
+    ) = viewModelScope.launch {
+        _apiResponse.emit(ApiResponse().responseLoading())
+        ApiObserver({ apiService.login(emailOrPhone, password) },
+            false,
+            object : ApiObserver.ResponseListener {
+                override suspend fun onSuccess(response: JSONObject) {
+                    val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
+                    val token = response.getString("token")
+                    userDao.insert(data.copy(idRoom = 1))
+                    Timber.tag("cek token").d(token)
+                    Log.d("cek token","$token")
+                    session.setValue(Const.TOKEN.ACCESS_TOKEN, token)
+                    _apiResponse.emit(ApiResponse().responseSuccess())
+
+                }
+
+                override suspend fun onError(response: ApiResponse) {
+                    super.onError(response)
+                    _apiResponse.emit(ApiResponse().responseError())
+
+                }
+            })
+    }
+
+
     fun logout(
     ) = viewModelScope.launch {
         _apiResponse.emit(ApiResponse().responseLoading())

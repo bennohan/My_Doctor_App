@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -52,7 +54,8 @@ class ProfileActivity :
         }
 
         binding.btnEditNama.setOnClickListener {
-            editDialog("Nama")
+//            editDialog("Nama")
+            convertToEditText()
         }
 
         binding.btnEditEmail.setOnClickListener {
@@ -67,6 +70,28 @@ class ProfileActivity :
             openPictureDialog()
         }
 
+    }
+
+    private fun convertToEditText() {
+        // Get the current text from the TextView
+        val currentText = binding.tvName.text.toString()
+
+        // Create a new EditText
+        val editText = EditText(this)
+        editText.id = View.generateViewId() // Generate a unique ID for the EditText
+
+        // Set the text of the EditText to the current text of the TextView
+        editText.setText(currentText)
+
+        // Set any other properties you need for the EditText
+
+        // Replace the TextView with the EditText in the layout
+        val parent = binding.tvName.parent as LinearLayout
+        val index = parent.indexOfChild(binding.tvName)
+        parent.removeView(binding.tvName)
+        parent.addView(editText, index)
+
+        // Now, editText is in place of textView in the layout
     }
 
     //TODO TES INI

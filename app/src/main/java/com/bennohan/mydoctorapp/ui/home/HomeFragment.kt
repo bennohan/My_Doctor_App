@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Button
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.activityViewModels
@@ -42,7 +41,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var dataSubdistrict = ArrayList<Subdistrict?>()
     private var dataCategory = ArrayList<Category?>()
     private var subdistrictsId: String? = null
-    val imageBannerList = ArrayList<BannerSlider>()
+    private var categoryId: String? = null
+    private val imageBannerList = ArrayList<BannerSlider>()
 
 
     private val adapterDoctor by lazy {
@@ -84,19 +84,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 super.onBindViewHolder(holder, position)
                 val item = getItem(position)
 
-
                 item?.let { itm ->
                     holder.binding.kecamatan = itm
                     holder.bind(itm)
 
-//                    holder.binding.cardDoctor.setOnClickListener {
-//                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
-//                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
-//                        startActivity(intent)
-//                        Log.d("cek id doctor", "${item.id}")
-//
-//                    }
+                    if (itm.selected) {
+                        // Do something when the item is selected
+                        holder.binding.cardSubsdistrict.setBackgroundColor(requireContext().getColor(R.color.main_color_red))
+                    } else {
+                        // Do something when the item is not selected
+                        holder.binding.cardSubsdistrict.setBackgroundColor(requireContext().getColor(R.color.white))
+                    }
 
+
+                    holder.binding.cardSubsdistrict.setOnClickListener {
+                        itm.selected = !itm.selected
+
+                        // Notify the adapter that the data set has changed
+                        notifyDataSetChanged()
+                        Log.d("cek selected Kecamatan",itm.name)
+                        subdistrictsId = itm.id
+                        subdistrictsId?.let { it1 -> Log.d("cek selected KecamatanID", it1) }
+
+                    }
 
                 }
 
@@ -105,7 +115,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
     private val adapterCategoryDoctor by lazy {
-        object : ReactiveListAdapter<ItemDoctorCategoryBinding, Category>(R.layout.item_doctor_category) {
+        object :
+            ReactiveListAdapter<ItemDoctorCategoryBinding, Category>(R.layout.item_doctor_category) {
             override fun onBindViewHolder(
                 holder: ItemViewHolder<ItemDoctorCategoryBinding, Category>,
                 position: Int
@@ -114,17 +125,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 val item = getItem(position)
 
 
+
                 item?.let { itm ->
                     holder.binding.category = itm
                     holder.bind(itm)
 
-//                    holder.binding.cardDoctor.setOnClickListener {
-//                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
-//                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
-//                        startActivity(intent)
-//                        Log.d("cek id doctor", "${item.id}")
-//
-//                    }
+                    if (itm.selected) {
+                        // Do something when the item is selected
+                        holder.binding.cardCategory.setBackgroundColor(requireContext().getColor(R.color.main_color_red))
+                    } else {
+                        // Do something when the item is not selected
+                        holder.binding.cardCategory.setBackgroundColor(requireContext().getColor(R.color.white))
+                    }
+
+
+                    holder.binding.cardCategory.setOnClickListener {
+                        itm.selected = !itm.selected
+
+                        // Notify the adapter that the data set has changed
+                        notifyDataSetChanged()
+                        Log.d("cek selected Kecamatan",itm.name)
+                        categoryId = itm.id
+
+                    }
 
 
                 }
@@ -156,21 +179,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         getDoctor()
         observe()
         search()
-        imageSlider()
         viewModel.getCategories()
         viewModel.getSubdistricts()
         viewModel.getBannerSlider()
 
     }
 
-    private fun imageSlider() {
+    private fun imageSlider(data: List<BannerSlider>) {
         val imageList = ArrayList<SlideModel>()
-        imageBannerList.forEach {
+        data.forEach {
             imageList.add(SlideModel(it.photo))
         }
 //        val ivSlider = find
         binding?.ivSliderBanner?.setImageList(imageList)
-        Log.d("cek image slider","$imageList")
+        Log.d("cek image slider", "$imageList")
 
     }
 
@@ -221,8 +243,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
                 launch {
                     viewModel.listBannerSlider.collectLatest {
+                        Log.d("cek image collect", it.toString())
                         imageBannerList.clear()
                         imageBannerList.addAll(it)
+                        imageSlider(it)
                     }
                 }
             }
@@ -269,31 +293,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.dialog_filter, null)
 
-        val autoCompleteSpinner = view.findViewById<AutoCompleteTextView>(R.id.dropdown_category)
+//        val autoCompleteSpinner = view.findViewById<AutoCompleteTextView>(R.id.dropdown_category)
         val rvFilterKecamatan = view.findViewById<RecyclerView>(R.id.rv_kecamatan)
+        val rvFilterCategory = view.findViewById<RecyclerView>(R.id.rv_doctorCategory)
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
             dataCategory
         )
-        autoCompleteSpinner.setAdapter(adapter)
+//        autoCompleteSpinner.setAdapter(adapter)
         rvFilterKecamatan.adapter = adapterKecamatan
+        rvFilterCategory.adapter = adapterCategoryDoctor
+
 //        binding.textInputKecamatan.setTextColor(ContextCompat.getColor(this,R.color.black))
 
 
         // Show the dropdown list when the AutoCompleteTextView is clicked
-        autoCompleteSpinner.setOnClickListener {
-            autoCompleteSpinner.showDropDown()
-            autoCompleteSpinner.dropDownVerticalOffset = -autoCompleteSpinner.height
-        }
-
-        autoCompleteSpinner.setOnItemClickListener { _, _, position, _ ->
-            // Handle item selection here
-            val selectedItem = dataDoctor[position]
-            subdistrictsId = selectedItem?.id
-
-
-        }
+//        autoCompleteSpinner.setOnClickListener {
+//            autoCompleteSpinner.showDropDown()
+//            autoCompleteSpinner.dropDownVerticalOffset = -autoCompleteSpinner.height
+//        }
+//
+//        autoCompleteSpinner.setOnItemClickListener { _, _, position, _ ->
+//            // Handle item selection here
+//            val selectedItem = dataDoctor[position]
+//            subdistrictsId = selectedItem?.id
+//
+//
+//        }
 
 
         // Find and set up UI components inside the bottom sheet layout

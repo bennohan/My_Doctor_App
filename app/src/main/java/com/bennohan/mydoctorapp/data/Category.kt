@@ -17,7 +17,8 @@ data class Category(
     val name: String,
     @Expose
     @SerializedName("updated_at")
-    val updated_at: String
+    val updated_at: String,
+    var selected: Boolean = false
 ){
     override fun toString(): String {
         return name.toString()
