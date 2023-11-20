@@ -13,6 +13,9 @@ data class Doctor(
     @SerializedName("category")
     val category: Category,
     @Expose
+    @SerializedName("description")
+    val description: String,
+    @Expose
     @SerializedName("id")
     val id: String,
     @Expose

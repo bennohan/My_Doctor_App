@@ -32,7 +32,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    imageUrl='@{user.photo}'
+                    imageUrlCircle='@{user.photo}'
                     android:contentDescription="@string/image_profile"
                     android:src="@drawable/ic_baseline_person_24" />
 

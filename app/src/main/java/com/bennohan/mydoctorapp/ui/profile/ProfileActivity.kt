@@ -1,9 +1,13 @@
 package com.bennohan.mydoctorapp.ui.profile
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -11,6 +15,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -39,21 +44,25 @@ class ProfileActivity :
     @Inject
     lateinit var userDao: UserDao
     private var filePhoto: File? = null
+    private var nameInput: String? = null
+    private var name: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         observe()
+        editProfile()
         binding.btnLogout.setOnClickListener {
             logoutDialog()
         }
 
         binding.btnBack.setOnClickListener {
-            finish()
+            @Suppress("DEPRECATION")
+            onBackPressed()
         }
 
-        binding.btnEditNama.setOnClickListener {
+        binding.tvName.setOnClickListener {
 //            editDialog("Nama")
             convertToEditText()
         }
@@ -72,9 +81,28 @@ class ProfileActivity :
 
     }
 
+    private fun editProfile() {
+
+        binding.btnSave.setOnClickListener {
+            val nameNew = nameInput
+            if (filePhoto == null){
+                nameNew?.let { it1 -> viewModel.updateProfile(it1) }
+            }else{
+                if (nameNew != null) {
+                    viewModel.updateProfilePhoto(nameNew, filePhoto!!)
+                }else{
+                    viewModel.updateProfilePhoto(name, filePhoto!!)
+
+                }
+            }
+        }
+
+    }
+
     private fun convertToEditText() {
         // Get the current text from the TextView
         val currentText = binding.tvName.text.toString()
+
 
         // Create a new EditText
         val editText = EditText(this)
@@ -90,6 +118,24 @@ class ProfileActivity :
         val index = parent.indexOfChild(binding.tvName)
         parent.removeView(binding.tvName)
         parent.addView(editText, index)
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+                // Not needed in this case
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                // Not needed in this case
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                val text = editable.toString()
+                nameInput = text
+                binding.btnSave.visibility = View.VISIBLE
+                Log.d("cek imput name",text)
+            }
+        })
+
 
         // Now, editText is in place of textView in the layout
     }
@@ -125,8 +171,8 @@ class ProfileActivity :
                 when (which) {
                     0 -> (this@ProfileActivity).activityLauncher.openCamera(
                         this@ProfileActivity,
-                        "${this@ProfileActivity.packageName}.fileprovider"
-                    ) { file, _ ->
+                        "${this@ProfileActivity.packageName}.fileprovider")
+                     { file, _ ->
                         uploadAvatar(file)
                     }
                     1 -> (this@ProfileActivity).activityLauncher.openGallery(
@@ -141,7 +187,7 @@ class ProfileActivity :
 
     private fun uploadAvatar(file: File?) {
         if (file == null) {
-            binding.root.snacked("error")
+            binding.root.snacked("Coba Masukan Gambar Lagi")
             return
         }
 
@@ -209,7 +255,11 @@ class ProfileActivity :
                             ApiStatus.SUCCESS -> {
                                 when (it.message) {
                                     "Profile Edited" -> {
-                                        binding.root.snacked("Profile Edited")
+                                        tos("Profile Edited")
+                                        finish()
+                                        openActivity<ProfileActivity> {
+                                            finish()
+                                        }
 
                                     }
                                     "Logout" -> {
@@ -233,6 +283,7 @@ class ProfileActivity :
                 launch {
                     userDao.getUser().collectLatest { user ->
                         binding.user = user
+                        name = user.name
 
                     }
                 }
@@ -240,4 +291,40 @@ class ProfileActivity :
         }
 
     }
+
+    @SuppressLint("MissingSuperCall")
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        if (filePhoto != null ) {
+            unsavedAlert()
+            return
+        }
+        if (binding.btnSave.visibility == View.VISIBLE){
+            unsavedAlert()
+            return
+        }
+    }
+
+    private fun unsavedAlert(){
+        val builder = AlertDialog.Builder(this@ProfileActivity)
+        builder.setTitle("Unsaved Changes")
+        builder.setMessage("You have unsaved changes. Are you sure you want to Dismiss changes?.")
+            .setPositiveButton("Dismiss") { _, _ ->
+                this@ProfileActivity.finish()
+            }
+            .setNegativeButton("Keep Editing") { dialog, _ ->
+                dialog.dismiss()
+            }
+        val dialog: AlertDialog = builder.create()
+
+        // Set the color of the positive button text
+        dialog.setOnShowListener {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, com.crocodic.core.R.color.text_red))
+            dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.my_hint_color))
+        }
+        dialog.show()
+
+    }
+
+
 }

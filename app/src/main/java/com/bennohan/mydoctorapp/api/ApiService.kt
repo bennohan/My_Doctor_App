@@ -1,5 +1,6 @@
 package com.bennohan.mydoctorapp.api
 
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -31,10 +32,18 @@ interface ApiService {
     suspend fun getSubdistricts(
     ): String
 
-    @GET("user/profile")
+    @FormUrlEncoded
+    @POST("user/profile")
     suspend fun updateProfile(
         @Field("name") name: String?,
         ): String
+
+    @Multipart
+    @POST("user/profile")
+    suspend fun updateProfilePhoto(
+        @Query("name") name: String?,
+        @Part photo : MultipartBody.Part?
+    ): String
 
 
 

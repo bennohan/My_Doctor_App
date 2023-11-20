@@ -15,6 +15,7 @@ import com.bennohan.mydoctorapp.databinding.ActivityDetailDoctorBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.crocodic.core.api.ApiStatus
+import com.crocodic.core.extension.isEmptyRequired
 import com.crocodic.core.extension.snacked
 import com.crocodic.core.extension.textOf
 import com.crocodic.core.extension.tos
@@ -29,7 +30,7 @@ class DetailDoctorActivity :
     BaseActivity<ActivityDetailDoctorBinding, DetailDoctorViewModel>(R.layout.activity_detail_doctor) {
 
     private var doctorSave: Boolean? = null
-    private  var dataDoctor : Doctor? = null
+    private var dataDoctor: Doctor? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,6 @@ class DetailDoctorActivity :
         }
     }
 
-    
 
     private fun getDoctor() {
         val idDoctor = intent.getStringExtra(Const.DOCTOR.ID_DOCTOR)
@@ -68,7 +68,7 @@ class DetailDoctorActivity :
         }
     }
 
-                                                                private fun buatJanjiTemuDialog() {
+    private fun buatJanjiTemuDialog() {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_buat_janji_temu)
 
@@ -95,10 +95,18 @@ class DetailDoctorActivity :
         }
 
         btnBuatJanjiTemu.setOnClickListener {
-            if (idDoctor != null) {
-                viewModel.createReservations(idDoctor,alasanKeluhan,dateTime)
+            if (dateTime.isNullOrEmpty() || alasanKeluhan.isNullOrEmpty()) {
+                tos("Harap Isi Semua Data")
+                return@setOnClickListener
+            } else {
+                if (idDoctor != null) {
+                    viewModel.createReservations(idDoctor, alasanKeluhan, dateTime)
+                    dialog.dismiss()
+                }
             }
+
         }
+
 
         dialog.show()
 

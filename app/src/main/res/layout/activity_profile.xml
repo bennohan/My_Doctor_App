@@ -31,6 +31,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginTop="80dp"
+            imageUrlCircle='@{user.photo}'
             android:contentDescription="@string/image_profile"
             android:src="@drawable/ic_baseline_person_black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +43,9 @@
             android:id="@+id/iv_profileNew"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            imageUrl='@{user.photo}'
             android:layout_marginTop="80dp"
+            android:visibility="gone"
             android:contentDescription="@string/image_profile"
-            android:src="@drawable/ic_baseline_person_black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -119,6 +119,13 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/button_edit"
                 android:src="@drawable/ic_baseline_edit_24" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/btn_editNamaChecklist"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:contentDescription="@string/button_edit"-->
+<!--                android:src="" />-->
 
 
         </LinearLayout>

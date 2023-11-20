@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="data"
             type="com.bennohan.mydoctorapp.data.Doctor" />
     </data>
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,8 +44,10 @@
                 android:id="@+id/tv_doctorCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/person_name"
+                tools:text="@string/person_name"
+                android:text='@{data.category.name}'
                 android:textSize="16dp"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name" />
@@ -67,6 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_alasanKeluhan" />
 
             <TextView
@@ -97,23 +101,6 @@
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_waktuJanjiTemu" />
-
-                <!--            <TextView-->
-                <!--                android:id="@+id/textView"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:text=":"-->
-                <!--                android:textSize="15sp"-->
-                <!--                app:layout_constraintStart_toEndOf="@id/et_waktuJanjiTemuJam"-->
-                <!--                app:layout_constraintTop_toBottomOf="@id/tv_waktuJanjiTemu" />-->
-
-                <!--            <EditText-->
-                <!--                android:id="@+id/et_waktuJanjiTemuMenit"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:inputType="text"-->
-                <!--                app:layout_constraintStart_toEndOf="@id/textView"-->
-                <!--                app:layout_constraintTop_toBottomOf="@id/textView" />-->
 
 
             </LinearLayout>
