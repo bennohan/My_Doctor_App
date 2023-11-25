@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.bennohan.mydoctorapp.data.Doctor" />
+            type="com.bennohan.mydoctorapp.data.doctor.Doctor" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,11 +14,10 @@
         android:layout_height="match_parent"
         tools:context=".ui.detailDoctor.DetailDoctorActivity">
 
-        <ImageView
+        <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/iv_profileDoctor"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            imageUrl='@{data.photo}'
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -26,6 +25,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@null"
+            android:foreground="@drawable/ripple_effect"
             android:contentDescription="@string/button_back"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +36,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@null"
+            android:foreground="@drawable/ripple_effect"
             android:contentDescription="@string/button_back"
             tools:src="@drawable/ic_baseline_bookmark_24"
             android:src='@{data.saveByYou ? @drawable/ic_baseline_bookmark_24 : @drawable/ic_baseline_bookmark_border_24}'
@@ -312,6 +313,7 @@
             android:background='@{data.statusOperation ? @color/main_color_red : @color/grey}'
             android:text="@string/buat_janji_temu"
             android:textAllCaps="false"
+            android:foreground="@drawable/ripple_effect"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

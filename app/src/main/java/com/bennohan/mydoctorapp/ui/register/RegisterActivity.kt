@@ -12,12 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
-import com.bennohan.mydoctorapp.data.Subdistrict
+import com.bennohan.mydoctorapp.data.subdistrict.Subdistrict
 import com.bennohan.mydoctorapp.databinding.ActivityRegisterBinding
-import com.bennohan.mydoctorapp.ui.home.HomeActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.extension.isEmptyRequired
-import com.crocodic.core.extension.openActivity
 import com.crocodic.core.extension.textOf
 import com.crocodic.core.extension.tos
 import dagger.hilt.android.AndroidEntryPoint

@@ -6,7 +6,7 @@ import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.base.BaseViewModel
 import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.data.user.User
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse

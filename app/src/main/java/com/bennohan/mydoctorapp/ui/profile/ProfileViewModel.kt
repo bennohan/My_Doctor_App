@@ -1,11 +1,9 @@
 package com.bennohan.mydoctorapp.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.base.BaseViewModel
-import com.bennohan.mydoctorapp.data.Const
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.bennohan.mydoctorapp.data.user.User
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
@@ -19,7 +17,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
-import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 

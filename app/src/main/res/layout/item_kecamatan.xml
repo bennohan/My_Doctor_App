@@ -5,15 +5,15 @@
 
         <variable
             name="kecamatan"
-            type="com.bennohan.mydoctorapp.data.Subdistrict" />
+            type="com.bennohan.mydoctorapp.data.subdistrict.Subdistrict" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cardSubsdistrict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:id="@+id/cardSubsdistrict"
         android:background="@drawable/background_filter_dropdown">
 
         <LinearLayout
@@ -24,9 +24,9 @@
                 android:id="@+id/tv_kecamatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text='@{kecamatan.name}'
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text='@{kecamatan.name}'
                 android:textStyle="bold"
                 tools:text="Kecamatan" />
 

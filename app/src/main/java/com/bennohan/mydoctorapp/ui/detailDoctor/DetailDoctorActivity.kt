@@ -3,6 +3,12 @@ package com.bennohan.mydoctorapp.ui.detailDoctor
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -10,15 +16,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.data.Const
-import com.bennohan.mydoctorapp.data.Doctor
+import com.bennohan.mydoctorapp.data.doctor.Doctor
 import com.bennohan.mydoctorapp.databinding.ActivityDetailDoctorBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.crocodic.core.api.ApiStatus
-import com.crocodic.core.extension.isEmptyRequired
 import com.crocodic.core.extension.snacked
 import com.crocodic.core.extension.textOf
 import com.crocodic.core.extension.tos
+import com.denzcoskun.imageslider.models.SlideModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,13 +37,15 @@ class DetailDoctorActivity :
 
     private var doctorSave: Boolean? = null
     private var dataDoctor: Doctor? = null
+    private var dataDoctorImage: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         getDoctor()
         observe()
-//        imageSlider()
+        dataDoctorImage?.let { initSlider(it) }
+
 
 
         binding.btnBack.setOnClickListener {
@@ -51,6 +59,13 @@ class DetailDoctorActivity :
         }
     }
 
+    private fun initSlider(data: List<String>) {
+        val imageList = ArrayList<SlideModel>()
+        data.forEach {
+            imageList.add(SlideModel(it))
+        }
+        binding.ivProfileDoctor.setImageList(imageList)
+    }
 
     private fun getDoctor() {
         val idDoctor = intent.getStringExtra(Const.DOCTOR.ID_DOCTOR)
@@ -74,10 +89,28 @@ class DetailDoctorActivity :
 
         val idDoctor = intent.getStringExtra(Const.DOCTOR.ID_DOCTOR)
         val etAlasanKeluhan = dialog.findViewById<EditText>(R.id.et_alasanKeluhan)
-        val tvDateTime = dialog.findViewById<TextView>(R.id.et_waktuJanjiTemuJam)
         val btnBuatJanjiTemu = dialog.findViewById<Button>(R.id.btn_buatJanji)
         val tvDoctorName = dialog.findViewById<TextView>(R.id.tv_name)
         val ivDoctorPhoto = dialog.findViewById<ImageView>(R.id.iv_profile)
+
+        val tvDateTime = dialog.findViewById<TextView>(R.id.et_waktuJanjiTemuJam)
+
+        val spannableString = SpannableString("Pilih jam di sini")
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                showTimePicker(tvDateTime)
+            }
+        }
+        spannableString.setSpan(
+            clickableSpan,
+            0,
+            spannableString.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        tvDateTime.text = spannableString
+        tvDateTime.movementMethod =
+            LinkMovementMethod.getInstance() // Required for clickable spans to work
+
 
         tvDoctorName.text = dataDoctor?.name
 
@@ -90,9 +123,9 @@ class DetailDoctorActivity :
 
         val alasanKeluhan = etAlasanKeluhan.textOf()
         val dateTime = tvDateTime.textOf()
-        tvDateTime.setOnClickListener {
-            showTimePicker(tvDateTime)
-        }
+//        tvDateTime.setOnClickListener {
+//            showTimePicker(tvDateTime)
+//        }
 
         btnBuatJanjiTemu.setOnClickListener {
             if (dateTime.isNullOrEmpty() || alasanKeluhan.isNullOrEmpty()) {
@@ -107,9 +140,7 @@ class DetailDoctorActivity :
 
         }
 
-
         dialog.show()
-
 
     }
 
@@ -123,16 +154,24 @@ class DetailDoctorActivity :
 
         val timePickerDialog = TimePickerDialog(
             this,
-            { _: TimePicker, selectedHour: Int, selectedMinute: Int ->
-                val time = String.format("%02d:%02d", selectedHour, selectedMinute)
-                val currentDate = dateFormat.format(calendar.time)
-                textView.text = "$currentDate $time"
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                if (hourOfDay in 9..17) {
+                    val time = String.format("%02d:%02d", hourOfDay, minute)
+                    val currentDate = dateFormat.format(calendar.time)
+                    textView.text = "$currentDate $time"
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 5.00 Hingga 17.00",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             },
-            nextHour,
+            currentHour,
             currentMinute,
-            true
-        )
+            false
 
+        )
         timePickerDialog.show()
     }
 
@@ -158,8 +197,8 @@ class DetailDoctorActivity :
                                 }
                             }
                             ApiStatus.ERROR -> {
-//                                disconnect(it)
-//                                load.setResponse(it.message ?: return@collect)
+                                disconnect(it)
+                                loadingDialog.setResponse(it.message ?: return@collect)
 
                             }
                             else -> {}
@@ -174,10 +213,11 @@ class DetailDoctorActivity :
                         doctorSave = detailDoctor?.saveByYou
                     }
                 }
-//                launch {
-//                    val like = viewModel.doctorLike
-//                    tos("$like")
-//                }
+                launch {
+                    viewModel.doctorImageList.collectLatest {
+                        Log.d("cek image", it.toString())
+                    }
+                }
             }
         }
     }

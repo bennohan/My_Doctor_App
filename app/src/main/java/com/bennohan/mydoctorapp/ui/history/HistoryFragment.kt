@@ -1,23 +1,24 @@
 package com.bennohan.mydoctorapp.ui.history
 
-import android.content.Intent
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
-import com.bennohan.mydoctorapp.data.Const
-import com.bennohan.mydoctorapp.data.Doctor
-import com.bennohan.mydoctorapp.data.UserDao
 import com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentHistoryBinding
-import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
-import com.bennohan.mydoctorapp.databinding.ItemHistoryBinding
-import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
+import com.bennohan.mydoctorapp.databinding.ItemHistoryDoctorBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,11 +32,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
     @Inject
     lateinit var userDao: UserDao
     private val viewModel by activityViewModels<HistoryViewModel>()
+    private var dataHistory: HistoryReservation? = null
 
     private val adapterHistoryOrder by lazy {
-        object : ReactiveListAdapter<ItemHistoryBinding, HistoryReservation>(R.layout.item_history) {
+        object :
+            ReactiveListAdapter<ItemHistoryDoctorBinding, HistoryReservation>(R.layout.item_history_doctor) {
             override fun onBindViewHolder(
-                holder: ItemViewHolder<ItemHistoryBinding, HistoryReservation>,
+                holder: ItemViewHolder<ItemHistoryDoctorBinding, HistoryReservation>,
                 position: Int
             ) {
                 super.onBindViewHolder(holder, position)
@@ -46,13 +49,33 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                     holder.binding.data = itm
                     holder.bind(itm)
 
-//                    holder.binding.cardDoctor.setOnClickListener {
-//                        val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
-//                        intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
-//                        startActivity(intent)
-                        Log.d("cek id doctor", "${item.id}")
+                    dataHistory = item
 
-//                    }
+                    when (item.status) {
+                        "done" -> {
+                            holder.binding.tvStatusReservation.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.my_hint_color
+                                )
+                            )
+                        }
+                        "hold" -> {
+                            holder.binding.tvStatusReservation.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(),
+                                    R.color.grey
+                                )
+                            )
+                        }
+
+                    }
+
+
+                    holder.binding.cardDoctor.setOnClickListener {
+                        openDialogHistory()
+
+                    }
 
 
                 }
@@ -60,6 +83,36 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
             }
 
         }
+    }
+
+    private fun openDialogHistory() {
+        val dialog = Dialog(requireContext())
+        val dataDialog = dataHistory
+        dialog.setContentView(R.layout.dialog_history)
+
+        Log.d("cek data history 1", dataDialog.toString())
+
+        val tvName = dialog.findViewById<TextView>(R.id.tv_name)
+        val tvDoctorCategory = dialog.findViewById<TextView>(R.id.tv_doctorCategory)
+        val tvTimeReservation = dialog.findViewById<TextView>(R.id.tv_timeReservation)
+        val tvRemarks = dialog.findViewById<TextView>(R.id.tv_remarks)
+        val tvStatus = dialog.findViewById<TextView>(R.id.tv_status)
+        val ivProfile = dialog.findViewById<ImageView>(R.id.iv_profile)
+
+        tvName.text = dataDialog?.docter?.name
+        tvDoctorCategory.text = dataDialog?.docter?.category?.name
+        tvTimeReservation.text = dataDialog?.timeReservation
+        tvRemarks.text = dataDialog?.remarks
+        tvStatus.text = dataDialog?.status
+
+        Glide
+            .with(requireContext())
+            .load(dataDialog?.docter?.photo)
+            .apply(RequestOptions.centerCropTransform())
+            .placeholder(R.drawable.ic_baseline_person_24)
+            .into(ivProfile)
+
+        dialog.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +162,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                 launch {
                     viewModel.listHistoryOrder.collectLatest { listHistory ->
                         adapterHistoryOrder.submitList(listHistory)
-                        Log.d("cek history",listHistory.toString())
+                        Log.d("cek history", listHistory.toString())
 //                        dataDoctor.clear()
 //                        dataDoctor.addAll(listDoctor)
                     }

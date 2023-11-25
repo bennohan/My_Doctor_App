@@ -1,7 +1,7 @@
 package com.bennohan.mydoctorapp.data.historyDoctor
 
 
-import com.bennohan.mydoctorapp.data.Doctor
+import com.bennohan.mydoctorapp.data.doctor.Doctor
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

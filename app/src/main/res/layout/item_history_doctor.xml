@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.bennohan.mydoctorapp.data.doctor.Doctor" />
+            type="com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -23,7 +23,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                imageUrl='@{data.photo}'
+                imageUrl='@{data.docter.photo}'
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text='@{data.name}'
+                android:text='@{data.docter.name}'
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -49,38 +49,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text='@{data.category.name}'
+                android:text='@{data.docter.category.name}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/tv_doctorName"
                 tools:text="Dr Categories" />
 
             <TextView
-                android:id="@+id/tv_doctorAddress"
+                android:id="@+id/tv_doctorReservationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text='@{data.address}'
+                android:text='@{data.timeReservation}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/tv_doctorCategory"
-                tools:text="Jatisari Permai Blok C10/7 Mijen, Semarang" />
+                tools:text="2023-11-11 09:00:00" />
 
-            <!--            <androidx.appcompat.widget.AppCompatButton-->
-            <!--                android:id="@+id/btn_buatJanjiTemu"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="40dp"-->
-            <!--                android:layout_marginStart="10dp"-->
-            <!--                android:layout_marginTop="5dp"-->
-            <!--                android:padding="10dp"-->
-            <!--                android:background="@color/main_color_red"-->
-            <!--                android:text="Buat Janji Temu"-->
-            <!--                android:textColor="@color/white"-->
-            <!--                android:textSize="10dp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintStart_toEndOf="@+id/imageView"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/tv_doctorAddress" />-->
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Status :"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@id/tv_doctorReservationDate" />
+
+            <TextView
+                android:id="@+id/tv_statusReservation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text='@{data.status}'
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_status"
+                app:layout_constraintTop_toBottomOf="@id/tv_doctorReservationDate"
+                tools:text="Done" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

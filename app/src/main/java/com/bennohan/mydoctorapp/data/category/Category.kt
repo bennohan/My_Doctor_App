@@ -1,4 +1,4 @@
-package com.bennohan.mydoctorapp.data
+package com.bennohan.mydoctorapp.data.category
 
 import androidx.room.Entity
 import com.google.gson.annotations.Expose

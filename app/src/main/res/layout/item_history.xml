@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation" />
@@ -12,9 +13,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_doctor"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:layout_height="wrap_content">
+        app:cardCornerRadius="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,37 +23,38 @@
 
             <ImageView
                 android:id="@+id/imageView"
+                imageUrl='@{data.docter.photo}'
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                imageUrl='@{data.docter.photo}'
-                tools:src="@drawable/ic_baseline_person_24"
+                android:contentDescription="@string/image_profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_baseline_person_24" />
 
             <TextView
                 android:id="@+id/tv_doctorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                tools:text="Dr Name"
                 android:text='@{data.docter.name}'
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Dr Name" />
 
             <TextView
                 android:id="@+id/tv_doctorCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                tools:text="Dr Categories"
                 android:text='@{data.docter.category.name}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/tv_doctorName" />
+                app:layout_constraintTop_toBottomOf="@id/tv_doctorName"
+                tools:text="Dr Categories" />
 
             <TextView
                 android:id="@+id/tv_doctorAddress"
@@ -60,26 +62,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                tools:text="Jatisari Permai Blok C10/7 Mijen, Semarang"
                 android:text='@{data.docter.address}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/tv_doctorCategory" />
+                app:layout_constraintTop_toBottomOf="@id/tv_doctorCategory"
+                tools:text="Jatisari Permai Blok C10/7 Mijen, Semarang" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_buatJanjiTemu"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:padding="10dp"
-                android:background="@color/main_color_red"
-                android:text="Buat Janji Temu"
-                android:textColor="@color/white"
-                android:textSize="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/tv_doctorAddress" />
+            <!--            <androidx.appcompat.widget.AppCompatButton-->
+            <!--                android:id="@+id/btn_buatJanjiTemu"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:layout_marginStart="10dp"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:background="@color/main_color_red"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:text="Buat Janji Temu"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="10dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/imageView"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/tv_doctorAddress" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

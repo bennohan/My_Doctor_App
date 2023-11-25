@@ -3,9 +3,9 @@ package com.bennohan.mydoctorapp.ui.history
 import androidx.lifecycle.viewModelScope
 import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.base.BaseViewModel
-import com.bennohan.mydoctorapp.data.Doctor
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.doctor.Doctor
 import com.bennohan.mydoctorapp.data.historyDoctor.HistoryReservation
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse

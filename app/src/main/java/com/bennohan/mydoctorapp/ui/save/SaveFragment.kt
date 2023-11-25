@@ -11,8 +11,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseFragment
 import com.bennohan.mydoctorapp.data.Const
-import com.bennohan.mydoctorapp.data.Doctor
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.doctor.Doctor
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.bennohan.mydoctorapp.databinding.FragmentSaveBinding
 import com.bennohan.mydoctorapp.databinding.ItemDoctorBinding
 import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="data"
-            type="com.bennohan.mydoctorapp.data.Doctor" />
+            type="com.bennohan.mydoctorapp.data.doctor.Doctor" />
     </data>
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
@@ -113,7 +113,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Buat Janji"
                 android:gravity="center"
-                android:backgroundTint="@color/main_color_red"
+                android:background="@color/main_color_red"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/linear" />

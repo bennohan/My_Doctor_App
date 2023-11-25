@@ -1,13 +1,12 @@
 package com.bennohan.mydoctorapp.ui.splash
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.bennohan.mydoctorapp.R
-import com.bennohan.mydoctorapp.base.BaseActivity
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.bennohan.mydoctorapp.databinding.ActivityMainBinding
 import com.bennohan.mydoctorapp.ui.home.NavigationActivity
 import com.bennohan.mydoctorapp.ui.login.LoginActivity
@@ -18,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+//TODO TEST INI
 @AndroidEntryPoint
 class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_main) {
 
@@ -33,6 +33,8 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
             lifecycleScope.launch {
                 val user = userDao.isLogin()
                 if (!user) {
+                    binding.layoutSplashOption.visibility = View.VISIBLE
+                    binding.layoutUiSplash.visibility = View.GONE
                     binding.btnLogin.setOnClickListener {
                         openActivity<LoginActivity> {
                             finish()
@@ -44,6 +46,8 @@ class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_
                         }
                     }
                 } else {
+                    binding.layoutSplashOption.visibility = View.GONE
+                    binding.layoutUiSplash.visibility = View.VISIBLE
                     openActivity<NavigationActivity> {
                         finish()
                     }

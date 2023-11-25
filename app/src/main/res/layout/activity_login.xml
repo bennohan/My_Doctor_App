@@ -9,7 +9,7 @@
         tools:context=".ui.login.LoginActivity">
 
         <TextView
-            android:id="@+id/tv_wellcome"
+            android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/welcome_to_konsul_dok"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_wellcome_login"
+            android:id="@+id/tv_welcome_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_to_get_started"
@@ -30,7 +30,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_wellcome" />
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
 
         <TextView
@@ -42,7 +42,7 @@
             android:textSize="15sp"
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_wellcome_login" />
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome_login" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Forgot password?"
+            android:text="@string/forgot_password"
             android:textColor="@color/main_color_red"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"

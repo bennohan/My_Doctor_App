@@ -1,10 +1,11 @@
 package com.bennohan.mydoctorapp.ui.detailDoctor
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.bennohan.mydoctorapp.api.ApiService
 import com.bennohan.mydoctorapp.base.BaseViewModel
-import com.bennohan.mydoctorapp.data.Doctor
-import com.bennohan.mydoctorapp.data.UserDao
+import com.bennohan.mydoctorapp.data.doctor.Doctor
+import com.bennohan.mydoctorapp.data.user.UserDao
 import com.crocodic.core.api.ApiCode
 import com.crocodic.core.api.ApiObserver
 import com.crocodic.core.api.ApiResponse
@@ -24,23 +25,29 @@ class DetailDoctorViewModel @Inject constructor(
     private val session: CoreSession,
     private val gson: Gson,
     private val userDao: UserDao
-) :  BaseViewModel() {
+) : BaseViewModel() {
 
     private var _detailDoctor = MutableSharedFlow<Doctor?>()
     var detailDoctor = _detailDoctor.asSharedFlow()
 
-    private var _doctorLike : String? = null
+    private var _doctorImageList = MutableSharedFlow<String?>()
+    var doctorImageList = _doctorImageList.asSharedFlow()
+
+    private var _doctorLike: String? = null
     var doctorLike = _doctorLike
 
     fun getDoctor(
         idDoctor: String,
-        ) = viewModelScope.launch {
+    ) = viewModelScope.launch {
         ApiObserver({ apiService.getDoctorDetail(idDoctor) },
             false,
             object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONObject(ApiCode.DATA).toObject<Doctor>(gson)
+                    val dataList = response.getJSONObject(ApiCode.DATA).getJSONArray("images")
                     _detailDoctor.emit(data)
+                    Log.d("cek imagewwww", dataList.toString())
+                    _doctorImageList.emit(dataList.toString())
                     _apiResponse.emit(ApiResponse().responseSuccess())
 
                 }
@@ -53,15 +60,17 @@ class DetailDoctorViewModel @Inject constructor(
                 }
             })
     }
+
     fun saveDoctor(
         idDoctor: String,
-        ) = viewModelScope.launch {
+    ) = viewModelScope.launch {
         ApiObserver({ apiService.saveUnsave(idDoctor) },
             false,
             object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
                     _apiResponse.emit(ApiResponse().responseSuccess("Saved"))
-                    val likeDisliked = response.getJSONObject(ApiCode.DATA).getString("status_favorite")
+                    val likeDisliked =
+                        response.getJSONObject(ApiCode.DATA).getString("status_favorite")
 //                    _doctorLike = likeDisliked
 
                 }
@@ -77,10 +86,10 @@ class DetailDoctorViewModel @Inject constructor(
 
     fun createReservations(
         idDoctor: String,
-        timeReservation : String,
-        remarksNote : String
-        ) = viewModelScope.launch {
-        ApiObserver({ apiService.createReservation(idDoctor,timeReservation,remarksNote) },
+        timeReservation: String,
+        remarksNote: String
+    ) = viewModelScope.launch {
+        ApiObserver({ apiService.createReservation(idDoctor, timeReservation, remarksNote) },
             false,
             object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {

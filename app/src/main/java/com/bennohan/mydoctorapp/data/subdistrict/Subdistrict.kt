@@ -1,4 +1,4 @@
-package com.bennohan.mydoctorapp.data
+package com.bennohan.mydoctorapp.data.subdistrict
 
 import androidx.room.Entity
 import com.google.gson.annotations.Expose

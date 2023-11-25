@@ -21,6 +21,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@null"
+            android:foreground="@drawable/ripple_effect"
             android:contentDescription="@string/button_back"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintStart_toStartOf="parent"
@@ -170,12 +171,6 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/btn_editEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/button_edit"
-                android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
@@ -220,12 +215,6 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/btn_editTelephone"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/button_edit"
-                android:src="@drawable/ic_baseline_edit_24" />
 
 
         </LinearLayout>
@@ -269,12 +258,6 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/button_edit"
-                android:src="@drawable/ic_baseline_edit_24" />
-
 
         </LinearLayout>
 
@@ -296,9 +279,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@color/main_color_red"
+            android:background="@drawable/background_card"
+            android:backgroundTint="@color/main_color_red"
             android:text="@string/logout"
             android:textAllCaps="false"
+            android:foreground="@drawable/ripple_effect"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

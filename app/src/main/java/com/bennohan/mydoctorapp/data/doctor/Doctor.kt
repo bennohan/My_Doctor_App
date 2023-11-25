@@ -1,6 +1,8 @@
-package com.bennohan.mydoctorapp.data
+package com.bennohan.mydoctorapp.data.doctor
 
 import androidx.room.Entity
+import com.bennohan.mydoctorapp.data.category.Category
+import com.bennohan.mydoctorapp.data.subdistrict.Subdistrict
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 

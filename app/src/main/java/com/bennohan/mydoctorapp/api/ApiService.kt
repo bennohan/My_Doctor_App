@@ -86,6 +86,13 @@ interface ApiService {
     ): String
 
     @FormUrlEncoded
+    @POST("docters/filter")
+    suspend fun getDoctorFilter(
+        @Field("subdistrict_id") subdistrictId: String?,
+        @Field("category_id") categoryId: String?,
+    ): String
+
+    @FormUrlEncoded
     @POST("docters/saved")
     suspend fun saveUnsave(
         @Field("docter_id") doctorId: String?,
