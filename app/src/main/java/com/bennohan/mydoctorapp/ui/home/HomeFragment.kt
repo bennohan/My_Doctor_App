@@ -1,5 +1,6 @@
 package com.bennohan.mydoctorapp.ui.home
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
 import com.bennohan.mydoctorapp.ui.profile.ProfileActivity
 import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.base.adapter.ReactiveListAdapter
+import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +48,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var subdistrictsId: String? = null
     private var categoryId: String? = null
     private val imageBannerList = ArrayList<BannerSlider>()
+    private var loadingDialog: ProgressDialog? = null
 
 
     private val adapterDoctor by lazy {
@@ -80,6 +83,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val adapterKecamatan by lazy {
         object : ReactiveListAdapter<ItemKecamatanBinding, Subdistrict>(R.layout.item_kecamatan) {
+            // Var to indicate that no item is currently selected
             private var selectedPosition: Int = RecyclerView.NO_POSITION
             override fun onBindViewHolder(
                 holder: ItemViewHolder<ItemKecamatanBinding, Subdistrict>,
@@ -92,6 +96,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     holder.binding.kecamatan = itm
                     holder.bind(itm)
 
+                    // It checks if the current item being bound in the RecyclerView same to the selectedPosition
                     val isSelected = position == selectedPosition
                     if (isSelected) {
                         // Do something when the item is selected
@@ -111,14 +116,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
 
                     holder.binding.cardSubsdistrict.setOnClickListener {
-                        // Select the clicked item
-                        notifyItemChanged(selectedPosition)
-
-                        // Select the clicked item
-                        selectedPosition = holder.adapterPosition
-                        notifyItemChanged(position)
-
-                        itm.selected = !itm.selected
+                        if (holder.adapterPosition == selectedPosition) {
+                            // Clicked on the already selected item, so deselect it
+                            selectedPosition = RecyclerView.NO_POSITION
+                        } else {
+                            // Deselect the previously selected item
+                            notifyItemChanged(selectedPosition)
+                            // Select the clicked item
+                            selectedPosition = holder.adapterPosition
+                            notifyItemChanged(selectedPosition)
+                        }
 
                         // Notify the adapter that the data set has changed
                         notifyDataSetChanged()
@@ -137,6 +144,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val adapterCategoryDoctor by lazy {
         object :
             ReactiveListAdapter<ItemDoctorCategoryBinding, Category>(R.layout.item_doctor_category) {
+            // Var to indicate that no item is currently selected
+            private var selectedPosition: Int = RecyclerView.NO_POSITION
             override fun onBindViewHolder(
                 holder: ItemViewHolder<ItemDoctorCategoryBinding, Category>,
                 position: Int
@@ -150,7 +159,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     holder.binding.category = itm
                     holder.bind(itm)
 
-                    if (itm.selected) {
+                    // It checks if the current item being bound in the RecyclerView same to the selectedPosition
+                    val isSelected = position == selectedPosition
+                    if (isSelected) {
                         // Do something when the item is selected
                         holder.binding.cardCategory.setBackgroundColor(requireContext().getColor(R.color.main_color_red))
                     } else {
@@ -160,7 +171,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
 
                     holder.binding.cardCategory.setOnClickListener {
-                        itm.selected = !itm.selected
+                        if (holder.adapterPosition == selectedPosition) {
+                            // Clicked on the already selected item, so deselect it
+                            selectedPosition = RecyclerView.NO_POSITION
+                        } else {
+                            // Deselect the previously selected item
+                            notifyItemChanged(selectedPosition)
+                            // Select the clicked item
+                            selectedPosition = holder.adapterPosition
+                            notifyItemChanged(selectedPosition)
+                        }
 
                         // Notify the adapter that the data set has changed
                         notifyDataSetChanged()
@@ -195,7 +215,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         getDoctor()
         observe()
         search()
-        viewModel.getBannerSlider()
 
     }
 
@@ -204,11 +223,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         data.forEach {
             imageList.add(SlideModel(it.photo))
         }
-//        val ivSlider = find
-        binding?.ivSliderBanner?.setImageList(imageList)
+        binding?.ivSliderBanner?.setImageList(imageList, ScaleTypes.FIT)
         Log.d("cek image slider", "$imageList")
 
     }
+
 
     private fun observe() {
         lifecycleScope.launch {
@@ -216,10 +235,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 launch {
                     viewModel.apiResponse.collect {
                         when (it.status) {
-                            ApiStatus.LOADING -> {}
+                            ApiStatus.LOADING -> {
+                                showLoadingDialog()
+                            }
                             ApiStatus.SUCCESS -> {
+                                loadingDialog?.dismiss()
                                 when (it.message) {
                                     "data success" -> {
+                                        viewModel.getBannerSlider()
+                                    }
+                                    "slider Success" -> {
                                         viewModel.getCategories()
                                         viewModel.getSubdistricts()
                                     }
@@ -291,11 +316,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
                 adapterDoctor.submitList(filter)
 
-//                if (filter.isEmpty()) {
-//                    binding!!.tvNoteNotFound.visibility = View.VISIBLE
-//                } else {
-//                    binding!!.tvNoteNotFound.visibility = View.GONE
-//                }
+                if (filter.isEmpty()) {
+                    binding!!.tvDoctorNotFound.visibility = View.VISIBLE
+                } else {
+                    binding!!.tvDoctorNotFound.visibility = View.GONE
+                }
+
             } else {
                 adapterDoctor.submitList(dataDoctor)
             }
@@ -310,7 +336,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun showBottomSheetDialog() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val view = layoutInflater.inflate(R.layout.dialog_filter, null)
-        val buttonInsideDialog = view.findViewById<Button>(R.id.btn_dialog_filter)
+        val buttonFilterDialog = view.findViewById<Button>(R.id.btn_dialog_filter)
         val rvFilterKecamatan = view.findViewById<RecyclerView>(R.id.rv_kecamatan)
         val rvFilterCategory = view.findViewById<RecyclerView>(R.id.rv_doctorCategory)
         rvFilterKecamatan.adapter = adapterKecamatan
@@ -318,16 +344,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         // Find and set up UI components inside the bottom sheet layout
 
-        buttonInsideDialog.setOnClickListener {
-            subdistrictsId?.let { it1 -> viewModel.getDoctorFilter(it1,categoryId) }
-            //Get List Destination By Category
+        buttonFilterDialog.setOnClickListener {
             // Handle button click inside the bottom sheet dialog
+            if (categoryId.isNullOrEmpty() &&subdistrictsId.isNullOrEmpty())
+                adapterDoctor.submitList(dataDoctor){
+                    Log.d("cek oo","ini bisa ga")
+                }else{
+                    viewModel.getDoctorFilter(subdistrictsId,categoryId)
+                }
             bottomSheetDialog.dismiss() // Close the dialog if needed
 
         }
 
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
+    }
+
+
+    private fun showLoadingDialog() {
+        loadingDialog = ProgressDialog(requireContext())
+        loadingDialog?.setMessage("Loading...")
+        loadingDialog?.setCancelable(false)
+        loadingDialog?.show()
     }
 
 

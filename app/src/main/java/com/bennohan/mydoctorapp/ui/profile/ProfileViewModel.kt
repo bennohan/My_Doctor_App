@@ -64,7 +64,7 @@ class ProfileViewModel @Inject constructor(
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONObject(ApiCode.DATA).toObject<User>(gson)
                     userDao.insert(data.copy(idRoom = 1))
-                    _apiResponse.emit(ApiResponse().responseSuccess())
+                    _apiResponse.emit(ApiResponse().responseSuccess("Profile Edited"))
 
                 }
 

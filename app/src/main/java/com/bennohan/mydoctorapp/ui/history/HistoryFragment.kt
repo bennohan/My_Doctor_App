@@ -49,7 +49,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                     holder.binding.data = itm
                     holder.bind(itm)
 
-                    dataHistory = item
 
                     when (item.status) {
                         "done" -> {
@@ -73,6 +72,8 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
 
 
                     holder.binding.cardDoctor.setOnClickListener {
+                        dataHistory = itm
+                        Log.d("cek data history singgle",dataHistory.toString())
                         openDialogHistory()
 
                     }

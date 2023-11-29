@@ -62,6 +62,7 @@
                 android:layout_gravity="center_vertical"
                 android:autofillHints="phone"
                 android:inputType="text"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -97,6 +98,7 @@
                 android:layout_gravity="center_vertical"
                 android:autofillHints="password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 

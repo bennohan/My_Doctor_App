@@ -15,7 +15,7 @@ interface ApiService {
     ): String
 
     @FormUrlEncoded
-    @POST("auth/login")
+    @POST("auth/register")
     suspend fun register(
         @Field("name") name: String?,
         @Field("email") email: String?,
@@ -85,11 +85,10 @@ interface ApiService {
         @Field("remarks") remarksNote: String?,
     ): String
 
-    @FormUrlEncoded
-    @POST("docters/filter")
+    @GET("docters/filter")
     suspend fun getDoctorFilter(
-        @Field("subdistrict_id") subdistrictId: String?,
-        @Field("category_id") categoryId: String?,
+        @Query("subdistrict_id") subdistrictId: String?,
+        @Query("category_id") categoryId: String?,
     ): String
 
     @FormUrlEncoded

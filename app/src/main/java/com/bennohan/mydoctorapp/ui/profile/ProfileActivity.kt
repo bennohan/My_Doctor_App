@@ -67,17 +67,9 @@ class ProfileActivity :
         }
 
         binding.btnEditNama.setOnClickListener {
-//            editDialog("Nama")
             convertToEditText()
         }
 
-//        binding.btnEditEmail.setOnClickListener {
-//            editDialog("Email")
-//        }
-//
-//        binding.btnEditTelephone.setOnClickListener {
-//            editDialog("Nomor Telephone")
-//        }
 
         binding.btnEditPhoto.setOnClickListener {
             openPictureDialog()
@@ -92,11 +84,14 @@ class ProfileActivity :
             val nameNew = nameInput
             if (filePhoto == null) {
                 nameNew?.let { it1 -> viewModel.updateProfile(it1) }
+                Log.d("conditon 1","condition 1")
             } else {
                 if (nameNew != null) {
                     viewModel.updateProfilePhoto(nameNew, filePhoto!!)
+                    Log.d("conditon 2","conditon 2")
                 } else {
                     viewModel.updateProfilePhoto(nameOld, filePhoto!!)
+                    Log.d("conditon 3","condition 3")
 
                 }
             }
@@ -267,10 +262,13 @@ class ProfileActivity :
                     viewModel.apiResponse.collect {
                         when (it.status) {
                             //TODO Loading dialog at fragment
-                            ApiStatus.LOADING -> {}
+                            ApiStatus.LOADING -> {
+                                loadingDialog.show()
+                            }
                             ApiStatus.SUCCESS -> {
                                 when (it.message) {
                                     "Profile Edited" -> {
+                                        loadingDialog.dismiss()
                                         tos("Profile Edited")
                                         finish()
                                         openActivity<ProfileActivity> {
@@ -317,12 +315,6 @@ class ProfileActivity :
         } else {
             finish()
         }
-//        if (binding.btnSave.visibility == View.VISIBLE){
-//            unsavedAlert()
-//            return
-//        }else{
-//            finish()
-//        }
     }
 
     private fun unsavedAlert() {

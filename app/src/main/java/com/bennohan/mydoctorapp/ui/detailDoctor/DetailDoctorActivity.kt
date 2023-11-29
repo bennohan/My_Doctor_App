@@ -24,6 +24,7 @@ import com.crocodic.core.api.ApiStatus
 import com.crocodic.core.extension.snacked
 import com.crocodic.core.extension.textOf
 import com.crocodic.core.extension.tos
+import com.crocodic.core.helper.ImagePreviewHelper
 import com.denzcoskun.imageslider.models.SlideModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -37,6 +38,7 @@ class DetailDoctorActivity :
 
     private var doctorSave: Boolean? = null
     private var dataDoctor: Doctor? = null
+    private var selectedHour : String? = null
     private var dataDoctorImage: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +49,9 @@ class DetailDoctorActivity :
         dataDoctorImage?.let { initSlider(it) }
 
 
+        binding.ivProfileDoctor.setOnClickListener {
+            ImagePreviewHelper(this).show(binding.ivProfileDoctor, binding.data?.photo)
+        }
 
         binding.btnBack.setOnClickListener {
             finish()
@@ -64,7 +69,7 @@ class DetailDoctorActivity :
         data.forEach {
             imageList.add(SlideModel(it))
         }
-        binding.ivProfileDoctor.setImageList(imageList)
+//        binding.ivProfileDoctor.setImageList(imageList)
     }
 
     private fun getDoctor() {
@@ -88,7 +93,7 @@ class DetailDoctorActivity :
         dialog.setContentView(R.layout.dialog_buat_janji_temu)
 
         val idDoctor = intent.getStringExtra(Const.DOCTOR.ID_DOCTOR)
-        val etAlasanKeluhan = dialog.findViewById<EditText>(R.id.et_alasanKeluhan)
+        val etAlasan = dialog.findViewById<EditText>(R.id.et_alasanKeluhan2)
         val btnBuatJanjiTemu = dialog.findViewById<Button>(R.id.btn_buatJanji)
         val tvDoctorName = dialog.findViewById<TextView>(R.id.tv_name)
         val ivDoctorPhoto = dialog.findViewById<ImageView>(R.id.iv_profile)
@@ -101,6 +106,7 @@ class DetailDoctorActivity :
                 showTimePicker(tvDateTime)
             }
         }
+
         spannableString.setSpan(
             clickableSpan,
             0,
@@ -109,7 +115,8 @@ class DetailDoctorActivity :
         )
         tvDateTime.text = spannableString
         tvDateTime.movementMethod =
-            LinkMovementMethod.getInstance() // Required for clickable spans to work
+            LinkMovementMethod.getInstance()
+        // Required for clickable spans to work
 
 
         tvDoctorName.text = dataDoctor?.name
@@ -121,25 +128,25 @@ class DetailDoctorActivity :
             .placeholder(R.drawable.ic_baseline_person_24)
             .into(ivDoctorPhoto)
 
-        val alasanKeluhan = etAlasanKeluhan.textOf()
-        val dateTime = tvDateTime.textOf()
-//        tvDateTime.setOnClickListener {
-//            showTimePicker(tvDateTime)
-//        }
-
         btnBuatJanjiTemu.setOnClickListener {
-            if (dateTime.isNullOrEmpty() || alasanKeluhan.isNullOrEmpty()) {
+            val alasanKeluhan = etAlasan.text.toString()
+            val dateTime = tvDateTime.textOf()
+
+            if (selectedHour.isNullOrBlank() || alasanKeluhan.isNullOrBlank()) {
                 tos("Harap Isi Semua Data")
+                Log.d("cek ga","$selectedHour")
+                Log.d("cek ga2","$alasanKeluhan")
                 return@setOnClickListener
             } else {
-                if (idDoctor != null) {
-                    viewModel.createReservations(idDoctor, alasanKeluhan, dateTime)
+                idDoctor?.let { it1 -> viewModel.createReservations(it1, alasanKeluhan, dateTime) }
                     dialog.dismiss()
-                }
+                tos(" Semua Data Komplit")
+                Log.d("cek ga","$selectedHour")
+                    Log.d("cek ga2","$alasanKeluhan")
             }
 
         }
-
+//        dialog.setCancelable(false)
         dialog.show()
 
     }
@@ -159,10 +166,11 @@ class DetailDoctorActivity :
                     val time = String.format("%02d:%02d", hourOfDay, minute)
                     val currentDate = dateFormat.format(calendar.time)
                     textView.text = "$currentDate $time"
+                    selectedHour = "$currentDate $time"
                 } else {
                     Toast.makeText(
                         this,
-                        "Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 5.00 Hingga 17.00",
+                        "Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 09.00 Hingga 17.00",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -182,9 +190,13 @@ class DetailDoctorActivity :
                 launch {
                     viewModel.apiResponse.collect {
                         when (it.status) {
-                            ApiStatus.LOADING -> {}
+                            ApiStatus.LOADING -> {
+                            }
                             ApiStatus.SUCCESS -> {
                                 when (it.message) {
+                                    "Reservation Created" -> {
+                                        tos("Reservasi sukses")
+                                    }
                                     "Saved" -> {
                                         if (doctorSave == true) {
                                             binding.root.snacked("Doctor UnSaved")

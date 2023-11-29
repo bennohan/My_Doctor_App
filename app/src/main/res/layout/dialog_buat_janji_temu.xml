@@ -64,14 +64,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_doctorCategory" />
 
-            <EditText
-                android:id="@+id/et_alasanKeluhan"
+<!--            <EditText-->
+<!--                android:id="@+id/et_alasanKeluhan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="text"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_alasanKeluhan" />-->
+<!--            <EditText-->
+<!--                android:id="@+id/et_alasanKeluhan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_alasanKeluhan" />-->
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputAlasan"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_alasanKeluhan" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_alasanKeluhan"
+                >
+
+                <EditText
+                    android:id="@+id/et_alasanKeluhan2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:autofillHints="password"
+                    android:inputType="text"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <TextView
                 android:id="@+id/tv_waktuJanjiTemu"
@@ -83,7 +115,7 @@
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_alasanKeluhan" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputAlasan" />
 
             <LinearLayout
                 android:id="@+id/linear"
@@ -96,7 +128,6 @@
                     android:id="@+id/et_waktuJanjiTemuJam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pilih jam di sini"
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"

@@ -27,7 +27,7 @@ class ViewBindingHelper {
                     Glide
                         .with(view.context)
                         .load(imageUrl)
-                        .apply(RequestOptions.centerCropTransform())
+//                        .apply(RequestOptions.)
                         .placeholder(R.drawable.ic_baseline_person_24)
                         .into(view)
                 }

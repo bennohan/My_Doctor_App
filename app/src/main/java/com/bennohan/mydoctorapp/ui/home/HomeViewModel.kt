@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getDoctorFilter(
-        subdistrictId: String,
+        subdistrictId: String?,
         categoryId: String?
     ) = viewModelScope.launch {
         ApiObserver({ apiService.getDoctorFilter(subdistrictId, categoryId) },
@@ -77,7 +77,7 @@ class HomeViewModel @Inject constructor(
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONArray(ApiCode.DATA).toList<Doctor>(gson)
                     _listDoctorFilter.emit(data)
-                    _apiResponse.emit(ApiResponse().responseSuccess("data success"))
+                    _apiResponse.emit(ApiResponse().responseSuccess("data filter success"))
 
                 }
 
@@ -98,7 +98,7 @@ class HomeViewModel @Inject constructor(
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONArray(ApiCode.DATA).toList<Subdistrict>(gson)
                     _listSubdistrict.emit(data)
-                    _apiResponse.emit(ApiResponse().responseSuccess())
+                    _apiResponse.emit(ApiResponse().responseSuccess("subdistrict Success"))
 
                 }
 
@@ -140,7 +140,7 @@ class HomeViewModel @Inject constructor(
                 override suspend fun onSuccess(response: JSONObject) {
                     val data = response.getJSONArray(ApiCode.DATA).toList<BannerSlider>(gson)
                     _bannerSlider.emit(data)
-                    _apiResponse.emit(ApiResponse().responseSuccess())
+                    _apiResponse.emit(ApiResponse().responseSuccess("slider Success"))
 
                 }
 

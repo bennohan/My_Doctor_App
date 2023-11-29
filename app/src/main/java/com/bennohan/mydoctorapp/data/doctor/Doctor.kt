@@ -28,7 +28,7 @@ data class Doctor(
     val name: String,
     @Expose
     @SerializedName("photo")
-    val photo: String,
+    val photo: String?,
     @Expose
     @SerializedName("email")
     val email: String?,

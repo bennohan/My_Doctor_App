@@ -73,6 +73,7 @@
                 android:layout_gravity="center_vertical"
                 android:autofillHints="text"
                 android:inputType="text"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -106,6 +107,7 @@
                 android:layout_gravity="center_vertical"
                 android:autofillHints="phone"
                 android:inputType="phone"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -126,7 +128,9 @@
             android:id="@+id/textInputKecamatan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan" />
+
 
         <!--        <com.google.android.material.textfield.TextInputLayout-->
         <!--            android:id="@+id/textInputKecamatan"-->
@@ -176,6 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:autofillHints="phone"
+                android:maxLines="1"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -212,6 +217,7 @@
                 android:layout_gravity="center_vertical"
                 android:autofillHints="password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
@@ -246,6 +252,7 @@
                 android:layout_gravity="center_vertical"
                 android:autofillHints="password"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
