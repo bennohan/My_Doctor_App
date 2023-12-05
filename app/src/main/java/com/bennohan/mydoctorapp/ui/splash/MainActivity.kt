@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//TODO TEST INI
 @AndroidEntryPoint
 class MainActivity : NoViewModelActivity<ActivityMainBinding>(R.layout.activity_main) {
 

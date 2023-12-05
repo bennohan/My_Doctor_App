@@ -33,8 +33,6 @@ class HistoryViewModel @Inject constructor(
     private var _doctorData = MutableSharedFlow<Doctor?>()
     var doctorData = _doctorData.asSharedFlow()
 
-    //TODO FORMAT HISTORY BERBEDA ??
-    //TODO APAKAH HRUS MEMBUAT DATACLASS BARU UNTUK MENAMPUNG RESPONSE HISTORY ??
     fun getHistoryOrder(
     ) = viewModelScope.launch {
         ApiObserver({ apiService.getHistory() },

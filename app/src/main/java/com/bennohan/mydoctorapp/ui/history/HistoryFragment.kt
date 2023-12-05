@@ -73,7 +73,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
 
                     holder.binding.cardDoctor.setOnClickListener {
                         dataHistory = itm
-                        Log.d("cek data history singgle",dataHistory.toString())
+                        Log.d("cek data history single", dataHistory.toString())
                         openDialogHistory()
 
                     }
@@ -104,6 +104,29 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
         tvDoctorCategory.text = dataDialog?.docter?.category?.name
         tvTimeReservation.text = dataDialog?.timeReservation
         tvRemarks.text = dataDialog?.remarks
+
+        if (dataDialog != null) {
+            when (dataDialog.status) {
+                "done" -> {
+                    tvStatus.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.my_hint_color
+                        )
+                    )
+                }
+                "hold" -> {
+                    tvStatus.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.grey
+                        )
+                    )
+                }
+
+            }
+        }
+
         tvStatus.text = dataDialog?.status
 
         Glide
@@ -116,18 +139,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
         dialog.show()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_history, container, false)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -164,6 +175,12 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                     viewModel.listHistoryOrder.collectLatest { listHistory ->
                         adapterHistoryOrder.submitList(listHistory)
                         Log.d("cek history", listHistory.toString())
+                        if (listHistory.isEmpty()) {
+                            binding?.tvAdapterEmpty?.visibility = View.VISIBLE
+                        } else {
+                            binding?.tvAdapterEmpty?.visibility = View.GONE
+                        }
+
 //                        dataDoctor.clear()
 //                        dataDoctor.addAll(listDoctor)
                     }

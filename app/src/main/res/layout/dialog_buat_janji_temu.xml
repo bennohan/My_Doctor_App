@@ -64,21 +64,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_doctorCategory" />
 
-<!--            <EditText-->
-<!--                android:id="@+id/et_alasanKeluhan"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:inputType="text"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_alasanKeluhan" />-->
-<!--            <EditText-->
-<!--                android:id="@+id/et_alasanKeluhan"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/tv_alasanKeluhan" />-->
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -119,7 +104,7 @@
 
             <LinearLayout
                 android:id="@+id/linear"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_waktuJanjiTemu">
@@ -129,9 +114,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
+                    tools:text="2023-11-23 10:00"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_waktuJanjiTemu" />
+
+                <TextView
+                    android:id="@+id/tvEdit_waktuJanjiTemu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="Ubah Waktu"
+                    android:visibility="gone"
+                    android:textColor="@color/black"/>
 
 
             </LinearLayout>
@@ -144,7 +140,8 @@
                 android:layout_marginTop="20dp"
                 android:text="Buat Janji"
                 android:gravity="center"
-                android:background="@color/main_color_red"
+                android:background="@drawable/background_card"
+                android:backgroundTint="@color/main_color_red"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/linear" />

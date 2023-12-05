@@ -314,19 +314,20 @@
             android:id="@+id/btn_buatJanjiTemu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background='@{data.statusOperation ? @color/main_color_red : @color/grey}'
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background_card"
+            android:backgroundTint='@{data.statusOperation ? @color/main_color_red : @color/grey}'
             android:foreground="@drawable/ripple_effect"
             android:text="@string/buat_janji_temu"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_description"
-            tools:background="@color/main_color_red" />
+            tools:backgroundTint="@color/main_color_red"
+            app:layout_constraintTop_toBottomOf="@+id/layout_description" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

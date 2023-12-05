@@ -104,7 +104,7 @@ class RegisterActivity :
             return
         }
 
-        //TODO ADD Email Validation Function
+        // ADD Email Validation Function
         fun isValidIndonesianPhoneNumber(phoneNumber: String): Boolean {
             val regex = Regex("^\\+62\\d{9,15}$|^0\\d{9,11}$")
             return regex.matches(phoneNumber)

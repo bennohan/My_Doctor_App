@@ -150,7 +150,6 @@ class ProfileActivity :
         // Now, editText is in place of textView in the layout
     }
 
-    //TODO TES INI
     @SuppressLint("SetTextI18n")
     private fun editDialog(text: String) {
         val dialog = Dialog(this)
@@ -162,10 +161,7 @@ class ProfileActivity :
 
         textView.text = "Masukan $text Baru"
 
-        //etInput TODO
-
         buttonSave.setOnClickListener {
-            //TODO
         }
 
         dialog.show()
@@ -261,7 +257,6 @@ class ProfileActivity :
                 launch {
                     viewModel.apiResponse.collect {
                         when (it.status) {
-                            //TODO Loading dialog at fragment
                             ApiStatus.LOADING -> {
                                 loadingDialog.show()
                             }
@@ -283,7 +278,6 @@ class ProfileActivity :
                                         }
                                     }
                                 }
-                                //TODO Replace it with TOAST
                             }
                             ApiStatus.ERROR -> {
 //                                loadingDialog.setResponse(it.message ?: return@collect)

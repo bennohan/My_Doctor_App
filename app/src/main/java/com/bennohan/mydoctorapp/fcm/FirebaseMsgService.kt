@@ -48,7 +48,7 @@ class FirebaseMsgService : FirebaseMessagingService() {
             message.data["title"] ?: return,
             message.data["message"] ?: return,
             message.data["reservation_id"] ?: return
-            //todo:title mengambil titlenya, body itu messagenya
+            //title mengambil titlenya, body itu messagenya
         )
 
 
@@ -57,9 +57,8 @@ class FirebaseMsgService : FirebaseMessagingService() {
 }
 
 private fun sendRegistrationToServer(token: String?) {
-    // TODO: Implement this method to send token to your app server.
-    //todo: untuk mengirim device tokennya, Dipindah Ke Home
-//    Log.d(TAG, "sendRegistrationTokenToServer($token)")
+    //implement this method to send token to your app server.
+    //untuk mengirim device tokennya, Dipindah Ke Home
 }
 
 //todo: untuk edit notifikasinya, notifasi manager sudah ada di android

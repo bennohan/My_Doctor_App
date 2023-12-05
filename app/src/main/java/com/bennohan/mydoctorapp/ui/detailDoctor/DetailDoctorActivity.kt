@@ -33,12 +33,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
+
 class DetailDoctorActivity :
     BaseActivity<ActivityDetailDoctorBinding, DetailDoctorViewModel>(R.layout.activity_detail_doctor) {
 
     private var doctorSave: Boolean? = null
     private var dataDoctor: Doctor? = null
-    private var selectedHour : String? = null
+    private var selectedHour: String? = null
+    private var selectedHourBoolean: Boolean? = false
     private var dataDoctorImage: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +99,7 @@ class DetailDoctorActivity :
         val btnBuatJanjiTemu = dialog.findViewById<Button>(R.id.btn_buatJanji)
         val tvDoctorName = dialog.findViewById<TextView>(R.id.tv_name)
         val ivDoctorPhoto = dialog.findViewById<ImageView>(R.id.iv_profile)
+        val tvEditTime = dialog.findViewById<TextView>(R.id.tvEdit_waktuJanjiTemu)
 
         val tvDateTime = dialog.findViewById<TextView>(R.id.et_waktuJanjiTemuJam)
 
@@ -128,21 +131,27 @@ class DetailDoctorActivity :
             .placeholder(R.drawable.ic_baseline_person_24)
             .into(ivDoctorPhoto)
 
+        if (selectedHourBoolean == true) {
+            tvEditTime.visibility = View.VISIBLE
+        } else {
+            tvEditTime.visibility = View.GONE
+        }
+
         btnBuatJanjiTemu.setOnClickListener {
             val alasanKeluhan = etAlasan.text.toString()
             val dateTime = tvDateTime.textOf()
 
             if (selectedHour.isNullOrBlank() || alasanKeluhan.isNullOrBlank()) {
                 tos("Harap Isi Semua Data")
-                Log.d("cek ga","$selectedHour")
-                Log.d("cek ga2","$alasanKeluhan")
+                Log.d("cek ga", "$selectedHour")
+                Log.d("cek ga2", "$alasanKeluhan")
                 return@setOnClickListener
             } else {
-                idDoctor?.let { it1 -> viewModel.createReservations(it1, alasanKeluhan, dateTime) }
-                    dialog.dismiss()
-                tos(" Semua Data Komplit")
-                Log.d("cek ga","$selectedHour")
-                    Log.d("cek ga2","$alasanKeluhan")
+                viewModel.createReservations(idDoctor.toString(), dateTime, alasanKeluhan)
+                dialog.dismiss()
+//                tos(" Semua Data Komplit")
+                Log.d("cek ga", "$selectedHour")
+                Log.d("cek ga2", "$alasanKeluhan")
             }
 
         }
@@ -161,16 +170,18 @@ class DetailDoctorActivity :
 
         val timePickerDialog = TimePickerDialog(
             this,
-            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+            { _, hourOfDay, minute ->
                 if (hourOfDay in 9..17) {
                     val time = String.format("%02d:%02d", hourOfDay, minute)
                     val currentDate = dateFormat.format(calendar.time)
                     textView.text = "$currentDate $time"
                     selectedHour = "$currentDate $time"
+                    selectedHourBoolean = true
+                    Log.d("cek boolean",selectedHourBoolean.toString())
                 } else {
                     Toast.makeText(
                         this,
-                        "Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 09.00 Hingga 17.00",
+                        R.string.note_reservation_failed,
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -191,17 +202,22 @@ class DetailDoctorActivity :
                     viewModel.apiResponse.collect {
                         when (it.status) {
                             ApiStatus.LOADING -> {
+                                loadingDialog.show()
                             }
                             ApiStatus.SUCCESS -> {
                                 when (it.message) {
                                     "Reservation Created" -> {
+                                        loadingDialog.dismiss()
+                                        loadingDialog.setMessage("Reservasi Sukses")
                                         tos("Reservasi sukses")
                                     }
                                     "Saved" -> {
                                         if (doctorSave == true) {
+                                            loadingDialog.dismiss()
                                             binding.root.snacked("Doctor UnSaved")
                                             getDoctor()
                                         } else {
+                                            loadingDialog.dismiss()
                                             binding.root.snacked("Doctor Saved")
                                             getDoctor()
                                         }

@@ -86,11 +86,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
             }
 
             // Get new FCM registration token
-            //todo: menerima hasil tugas fcmnya
+            //Receive FCM Task result
             val token = task.result
 
             // Log and toast
-            val msg = getString(R.string.msg_token_fmt, token) //todo:untuk menegecek aja
             Log.d(ContentValues.TAG, token)
 //            session.setValue(Const.TOKEN.DEVICE_TOKEN, token)
             session.setValue(Const.TOKEN.DEVICE_TOKEN, token)

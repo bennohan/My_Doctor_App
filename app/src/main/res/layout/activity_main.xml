@@ -32,8 +32,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:id="@+id/layout_splashOption"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
 
@@ -71,7 +71,8 @@
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="20dp"
             android:text="@string/login"
-            android:background="@color/main_color_red"
+            android:background="@drawable/background_card"
+            android:backgroundTint="@color/main_color_red"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/btn_register"
@@ -82,6 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
+            android:background="@drawable/background_card"
+            android:backgroundTint="#D1D0D0"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="30dp"
             android:text="@string/register"

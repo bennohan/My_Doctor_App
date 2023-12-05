@@ -33,4 +33,5 @@
     <string name="icon_kecamatan">Icon Kecamatan</string>
     <string name="logout">Logout</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="note_reservation_failed">Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 09.00 Hingga 17.00</string>
 </resources>

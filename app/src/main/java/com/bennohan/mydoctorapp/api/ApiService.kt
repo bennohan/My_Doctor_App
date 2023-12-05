@@ -78,7 +78,7 @@ interface ApiService {
 
     //Reservation
     @FormUrlEncoded
-    @POST("reservations/")
+    @POST("reservations")
     suspend fun createReservation(
         @Field("docter_id") doctorId: String?,
         @Field("time_reservation") timeReservation: String?,

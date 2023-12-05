@@ -46,7 +46,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var dataSubdistrict = ArrayList<Subdistrict?>()
     private var dataCategory = ArrayList<Category?>()
     private var subdistrictsId: String? = null
+    private var subdistrictsSelectd: Boolean? = false
     private var categoryId: String? = null
+    private var categorySelected: Boolean? = false
     private val imageBannerList = ArrayList<BannerSlider>()
     private var loadingDialog: ProgressDialog? = null
 
@@ -65,11 +67,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     holder.binding.data = itm
                     holder.bind(itm)
 
+
                     holder.binding.cardDoctor.setOnClickListener {
                         val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
                         intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
                         startActivity(intent)
-                        Log.d("cek id doctor", "${item.id}")
+                        Log.d("cek id doctor", item.id)
 
                     }
 
@@ -119,12 +122,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         if (holder.adapterPosition == selectedPosition) {
                             // Clicked on the already selected item, so deselect it
                             selectedPosition = RecyclerView.NO_POSITION
+                            subdistrictsSelectd = false
+                            Log.d("condition lepas", "Subdistrict Lepas")
                         } else {
                             // Deselect the previously selected item
                             notifyItemChanged(selectedPosition)
                             // Select the clicked item
                             selectedPosition = holder.adapterPosition
                             notifyItemChanged(selectedPosition)
+                            subdistrictsSelectd = true
                         }
 
                         // Notify the adapter that the data set has changed
@@ -174,17 +180,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         if (holder.adapterPosition == selectedPosition) {
                             // Clicked on the already selected item, so deselect it
                             selectedPosition = RecyclerView.NO_POSITION
+                            categorySelected = false
+                            Log.d("condition lepas", "Category Lepas")
                         } else {
                             // Deselect the previously selected item
                             notifyItemChanged(selectedPosition)
                             // Select the clicked item
                             selectedPosition = holder.adapterPosition
                             notifyItemChanged(selectedPosition)
+                            categorySelected = true
                         }
 
                         // Notify the adapter that the data set has changed
                         notifyDataSetChanged()
-                        Log.d("cek selected Kecamatan", itm.name)
                         categoryId = itm.id
 
                     }
@@ -297,6 +305,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
                 launch {
                     viewModel.listDoctorFilter.collectLatest {
+                        if (it.isEmpty()) {
+                            binding?.tvDoctorNotFound?.visibility = View.VISIBLE
+                        } else {
+                            binding?.tvDoctorNotFound?.visibility = View.GONE
+                        }
                         adapterDoctor.submitList(it)
                     }
                 }
@@ -346,14 +359,73 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         buttonFilterDialog.setOnClickListener {
             // Handle button click inside the bottom sheet dialog
-            if (categoryId.isNullOrEmpty() &&subdistrictsId.isNullOrEmpty())
-                adapterDoctor.submitList(dataDoctor){
-                    Log.d("cek oo","ini bisa ga")
-                }else{
-                    viewModel.getDoctorFilter(subdistrictsId,categoryId)
+            when {
+                subdistrictsSelectd == false && categorySelected == false -> {
+                    // Both selectedId and categoryId are null
+                    adapterDoctor.submitList(dataDoctor)
+                    Log.d("Condition 1", "Condition 1")
                 }
-            bottomSheetDialog.dismiss() // Close the dialog if needed
+                subdistrictsSelectd == false -> {
+                    // Only selectedId is null
+                    subdistrictsId = null
+                    viewModel.getDoctorFilter(subdistrictsId, categoryId)
+                    Log.d("Condition 2", "Condition 2")
+                    println("Now 2")
+                }
+                categorySelected == false -> {
+                    // Only categoryId is null
+                    categoryId = null
+                    println("Now 3")
+                    viewModel.getDoctorFilter(subdistrictsId, categoryId)
+                    Log.d("Condition 3", "Condition 3")
+                }
+                else -> {
+                    // Both selectedId and categoryId are not null
+                    // Your other logic goes here
+                    viewModel.getDoctorFilter(subdistrictsId, categoryId)
 
+                    Log.d("Condition 4", "Condition 4")
+
+                }
+            }
+
+
+//            val condition1 = categorySelected == false && subdistrictsSelectd == false
+//            val condition2 =
+//                (categorySelected == false && subdistrictsSelectd != false) || (categorySelected != false && subdistrictsSelectd == false)
+//
+//            if (condition1) {
+//                adapterDoctor.submitList(dataDoctor)
+//                Log.d("Condition 1", "Condition 1")
+//            } else if (condition2) {
+//                viewModel.getDoctorFilter(subdistrictsId, categoryId)
+//
+//                Log.d("condition subdistrict",subdistrictsId.toString())
+//                Log.d("condition category",categoryId.toString())
+//                Log.d("Condition 2", "Condition 2")
+//            } else {
+//                // Handle other cases if needed
+//                viewModel.getDoctorFilter(subdistrictsId, categoryId)
+//                Log.d("Condition 3", "Condition 3")
+//            }
+
+
+//            if (categorySelected == false || subdistrictsSelectd == false) {
+//                adapterDoctor.submitList(dataDoctor)
+//                    Log.d("cek oo","condition 1")
+//                Log.d("cek oo cateogryId", categorySelected.toString())
+//
+//                Log.d("cek oo subdistrict", subdistrictsSelectd.toString())
+//            } else {
+//                viewModel.getDoctorFilter(subdistrictsId, categoryId).apply {
+//                    Log.d("cek filter tanpa subdistrict","subdistrict $subdistrictsId")
+//                    Log.d("cek filter tanpa category","category $categoryId")
+//                    Log.d("cek oo","condition 2")
+//
+//                }
+//            }
+
+            bottomSheetDialog.dismiss()
         }
 
         bottomSheetDialog.setContentView(view)

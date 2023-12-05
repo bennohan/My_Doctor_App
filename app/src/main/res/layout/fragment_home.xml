@@ -111,7 +111,6 @@
                     android:textStyle="bold" />
 
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_doctorSebelumnya"
                     android:layout_width="match_parent"
