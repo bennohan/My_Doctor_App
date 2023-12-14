@@ -15,6 +15,7 @@ import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.data.Const
 import com.bennohan.mydoctorapp.databinding.ActivityLoginBinding
+import com.bennohan.mydoctorapp.ui.forgotPassword.PasswordActivity
 import com.bennohan.mydoctorapp.ui.home.NavigationActivity
 import com.bennohan.mydoctorapp.ui.register.RegisterActivity
 import com.crocodic.core.api.ApiStatus
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout.activity_login) {
+class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(R.layout.activity_login) {
 
     @Inject
     lateinit var session: CoreSession
@@ -41,26 +42,36 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
         //Calling Function
         observe()
         tvRegisterOption()
-        generateFcmToken {  }
+        generateFcmToken { }
 
 
         binding.btnLogin.setOnClickListener {
             login()
         }
 
+        binding.tvForgetPassword.setOnClickListener {
+            openActivity<PasswordActivity>()
+        }
+
 
     }
 
-    private fun tvRegisterOption(){
+    private fun tvRegisterOption() {
         val spannableString = SpannableString("Don’t have an account? Register")
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 openActivity<RegisterActivity>()
             }
         }
-        spannableString.setSpan(clickableSpan, 23, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        binding.tvOptionRegster.text = spannableString
-        binding.tvOptionRegster.movementMethod = LinkMovementMethod.getInstance() // Required for clickable spans to work
+        spannableString.setSpan(
+            clickableSpan,
+            23,
+            spannableString.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.tvOptionRegister.text = spannableString
+        binding.tvOptionRegister.movementMethod =
+            LinkMovementMethod.getInstance() // Required for clickable spans to work
 
     }
 
@@ -69,15 +80,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
         val emailPhone = binding.etEmailPhone.textOf()
         val password = binding.etPassword.textOf()
 
-        if (binding.etEmailPhone.isEmptyRequired(R.string.mustFillPhoneEmail)|| binding.etPassword.isEmptyRequired(R.string.mustFillPassword)){
+        if (binding.etEmailPhone.isEmptyRequired(R.string.mustFillPhoneEmail) || binding.etPassword.isEmptyRequired(
+                R.string.mustFillPassword
+            )
+        ) {
             return
         }
-        binding.btnLogin.setOnClickListener {
-            viewModel.login(emailPhone, password)
-        }
+        viewModel.login(emailPhone, password)
+
     }
 
-    private fun generateFcmToken ( result:( Boolean )-> Unit) {
+    private fun generateFcmToken(result: (Boolean) -> Unit) {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
 //                Log.w(ContentValues.TAG, "Fetching FCM registration token failed", task.exception)
@@ -108,6 +121,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>(R.layout
                             ApiStatus.SUCCESS -> {
                                 openActivity<NavigationActivity> {
                                     finish()
+                                    loadingDialog.show("Login Success")
                                     tos("Login Success")
                                 }
                             }

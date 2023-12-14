@@ -11,7 +11,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.ui.detailDoctor.DetailDoctorActivity
-import com.bennohan.mydoctorapp.ui.home.HomeActivity
+import com.bennohan.mydoctorapp.ui.home.NavigationActivity
 import com.crocodic.core.helper.DateTimeHelper
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -85,7 +85,7 @@ fun showNotification(context: Context, title: String, message: String , reservat
 
     //todo: untuk edit titile, masage, logo
     // todo:Builder
-    val homeIntent = Intent(context, HomeActivity::class.java)
+    val homeIntent = Intent(context, NavigationActivity::class.java)
     val detailIntent = Intent(context, DetailDoctorActivity::class.java).apply {
 //        putExtra(Const.DOCTOR.ID_DOCTOR, userId.toInt())
 //        Log.d("cek Id", "cek Id : $userId")

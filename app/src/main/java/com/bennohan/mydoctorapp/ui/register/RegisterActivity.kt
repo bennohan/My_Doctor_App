@@ -168,6 +168,9 @@ class RegisterActivity :
                         when (it.status) {
                             ApiStatus.LOADING -> loadingDialog.show()
                             ApiStatus.SUCCESS -> {
+                                loadingDialog.show("Register Success")
+                                tos("Register Success")
+                                finish()
 
                             }
                             ApiStatus.ERROR -> {
@@ -183,8 +186,6 @@ class RegisterActivity :
                 launch {
                     viewModel.listSubdistrict.collect {
                         dataSubdistrict.addAll(it)
-//                        val items = apiResponse.items.toList()
-                        // Call a function to set the spinner items with the retrieved data
                     }
                 }
             }

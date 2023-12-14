@@ -33,5 +33,10 @@
     <string name="icon_kecamatan">Icon Kecamatan</string>
     <string name="logout">Logout</string>
     <string name="forgot_password">Forgot password?</string>
-    <string name="note_reservation_failed">Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 09.00 Hingga 17.00</string>
+    <string name="note_reservation_failed">Gagal Memilih Waktu \n Maaf Anda Hanya Bisa Membuat Reservasi Untuk Pukul 09.00 Hingga 17.00</string>
+    <string name="forgot_password2">Forgot Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset_your_password_here">Reset Your Password Here</string>
 </resources>

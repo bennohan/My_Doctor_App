@@ -40,7 +40,6 @@ class DetailDoctorActivity :
     private var doctorSave: Boolean? = null
     private var dataDoctor: Doctor? = null
     private var selectedHour: String? = null
-    private var selectedHourBoolean: Boolean? = false
     private var dataDoctorImage: List<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,10 +105,11 @@ class DetailDoctorActivity :
         val spannableString = SpannableString("Pilih jam di sini")
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                showTimePicker(tvDateTime)
+                showTimePicker(tvDateTime,tvEditTime)
             }
         }
 
+        //Handle TV SELECT DATE TIME CLICK
         spannableString.setSpan(
             clickableSpan,
             0,
@@ -118,6 +118,18 @@ class DetailDoctorActivity :
         )
         tvDateTime.text = spannableString
         tvDateTime.movementMethod =
+            LinkMovementMethod.getInstance()
+
+
+        //Handle TV EDIT SELECTED  DATE TIME CLICK
+        spannableString.setSpan(
+            clickableSpan,
+            0,
+            spannableString.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        tvEditTime.text = spannableString
+        tvEditTime.movementMethod =
             LinkMovementMethod.getInstance()
         // Required for clickable spans to work
 
@@ -130,12 +142,6 @@ class DetailDoctorActivity :
             .apply(RequestOptions.centerCropTransform())
             .placeholder(R.drawable.ic_baseline_person_24)
             .into(ivDoctorPhoto)
-
-        if (selectedHourBoolean == true) {
-            tvEditTime.visibility = View.VISIBLE
-        } else {
-            tvEditTime.visibility = View.GONE
-        }
 
         btnBuatJanjiTemu.setOnClickListener {
             val alasanKeluhan = etAlasan.text.toString()
@@ -161,7 +167,7 @@ class DetailDoctorActivity :
     }
 
 
-    private fun showTimePicker(textView: TextView) {
+    private fun showTimePicker(textView: TextView, textViewButton: TextView) {
         val calendar = Calendar.getInstance()
         val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
         val nextHour = (currentHour + 1) % 24
@@ -176,9 +182,9 @@ class DetailDoctorActivity :
                     val currentDate = dateFormat.format(calendar.time)
                     textView.text = "$currentDate $time"
                     selectedHour = "$currentDate $time"
-                    selectedHourBoolean = true
-                    Log.d("cek boolean",selectedHourBoolean.toString())
+                    textViewButton.visibility = View.VISIBLE
                 } else {
+                    textViewButton.visibility = View.VISIBLE
                     Toast.makeText(
                         this,
                         R.string.note_reservation_failed,

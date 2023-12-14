@@ -14,6 +14,7 @@ interface ApiService {
         @Field("password") password: String?,
     ): String
 
+
     @FormUrlEncoded
     @POST("auth/register")
     suspend fun register(
@@ -28,6 +29,14 @@ interface ApiService {
     @DELETE("auth/logout")
     suspend fun logout(): String
 
+    @FormUrlEncoded
+    @POST("auth/change-password")
+    suspend fun changePassword(
+        @Field("old_password") oldPassword: String?,
+        @Field("new_password") newPassword: String?,
+        @Field("password_confirmation") passwordConfirmation: String?,
+    ): String
+
     @GET("subdistricts/")
     suspend fun getSubdistricts(
     ): String
@@ -36,15 +45,14 @@ interface ApiService {
     @POST("user/profile")
     suspend fun updateProfile(
         @Field("name") name: String?,
-        ): String
+    ): String
 
     @Multipart
     @POST("user/profile")
     suspend fun updateProfilePhoto(
         @Query("name") name: String?,
-        @Part photo : MultipartBody.Part?
+        @Part photo: MultipartBody.Part?
     ): String
-
 
 
     @GET("auth/me")

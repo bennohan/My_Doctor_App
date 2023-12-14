@@ -370,12 +370,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     subdistrictsId = null
                     viewModel.getDoctorFilter(subdistrictsId, categoryId)
                     Log.d("Condition 2", "Condition 2")
-                    println("Now 2")
                 }
                 categorySelected == false -> {
                     // Only categoryId is null
                     categoryId = null
-                    println("Now 3")
                     viewModel.getDoctorFilter(subdistrictsId, categoryId)
                     Log.d("Condition 3", "Condition 3")
                 }
@@ -388,42 +386,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                 }
             }
-
-
-//            val condition1 = categorySelected == false && subdistrictsSelectd == false
-//            val condition2 =
-//                (categorySelected == false && subdistrictsSelectd != false) || (categorySelected != false && subdistrictsSelectd == false)
-//
-//            if (condition1) {
-//                adapterDoctor.submitList(dataDoctor)
-//                Log.d("Condition 1", "Condition 1")
-//            } else if (condition2) {
-//                viewModel.getDoctorFilter(subdistrictsId, categoryId)
-//
-//                Log.d("condition subdistrict",subdistrictsId.toString())
-//                Log.d("condition category",categoryId.toString())
-//                Log.d("Condition 2", "Condition 2")
-//            } else {
-//                // Handle other cases if needed
-//                viewModel.getDoctorFilter(subdistrictsId, categoryId)
-//                Log.d("Condition 3", "Condition 3")
-//            }
-
-
-//            if (categorySelected == false || subdistrictsSelectd == false) {
-//                adapterDoctor.submitList(dataDoctor)
-//                    Log.d("cek oo","condition 1")
-//                Log.d("cek oo cateogryId", categorySelected.toString())
-//
-//                Log.d("cek oo subdistrict", subdistrictsSelectd.toString())
-//            } else {
-//                viewModel.getDoctorFilter(subdistrictsId, categoryId).apply {
-//                    Log.d("cek filter tanpa subdistrict","subdistrict $subdistrictsId")
-//                    Log.d("cek filter tanpa category","category $categoryId")
-//                    Log.d("cek oo","condition 2")
-//
-//                }
-//            }
 
             bottomSheetDialog.dismiss()
         }
