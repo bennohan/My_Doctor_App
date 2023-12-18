@@ -52,4 +52,5 @@
     <string name="new_password">New Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="reset_your_password_here">Reset Your Password Here</string>
+    <string name="dummy_home">Konsul Dok adalah aplikasi yang dirancang untuk memudahkan anda dalam proses mencari dan memesan jam praktik dengan berbagai dokter yang sesuai dengan kebutuhan Anda.</string>
 </resources>

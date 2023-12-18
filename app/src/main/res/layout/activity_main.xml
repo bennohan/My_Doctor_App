@@ -36,6 +36,14 @@
             android:visibility="gone"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/logo_3_transparent"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
@@ -54,7 +62,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dummy_Lore_ipsum"
+            android:text="@string/dummy_home"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
