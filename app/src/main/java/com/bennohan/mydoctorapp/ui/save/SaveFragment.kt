@@ -48,7 +48,7 @@ class SaveFragment : BaseFragment<FragmentSaveBinding>(R.layout.fragment_save) {
                         val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
                         intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
                         startActivity(intent)
-                        Log.d("cek id doctor", "${item.id}")
+                        Log.d("cek id doctor", item.id)
 
                     }
 
@@ -60,18 +60,6 @@ class SaveFragment : BaseFragment<FragmentSaveBinding>(R.layout.fragment_save) {
         }
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_save, container, false)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

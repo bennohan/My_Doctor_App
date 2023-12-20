@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -45,7 +44,6 @@ class ProfileActivity :
     lateinit var userDao: UserDao
     private var filePhoto: File? = null
     private var nameInput: String? = null
-    private var name: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,14 +82,11 @@ class ProfileActivity :
             val nameNew = nameInput
             if (filePhoto == null) {
                 nameNew?.let { it1 -> viewModel.updateProfile(it1) }
-                Log.d("conditon 1","condition 1")
             } else {
                 if (nameNew != null) {
                     viewModel.updateProfilePhoto(nameNew, filePhoto!!)
-                    Log.d("conditon 2","conditon 2")
                 } else {
                     viewModel.updateProfilePhoto(nameOld, filePhoto!!)
-                    Log.d("conditon 3","condition 3")
 
                 }
             }
@@ -142,7 +137,6 @@ class ProfileActivity :
                 val text = editable.toString()
                 nameInput = text
                 binding.btnSave.visibility = View.VISIBLE
-                Log.d("cek imput name", text)
             }
         })
 
@@ -150,24 +144,6 @@ class ProfileActivity :
         // Now, editText is in place of textView in the layout
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun editDialog(text: String) {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_edit)
-
-        val buttonSave = dialog.findViewById<Button>(R.id.btn_dialog_save)
-        val etInput = dialog.findViewById<EditText>(R.id.et_input).textOf()
-        val textView = dialog.findViewById<TextView>(R.id.tv_Masukan)
-
-        textView.text = "Masukan $text Baru"
-
-        buttonSave.setOnClickListener {
-        }
-
-        dialog.show()
-
-
-    }
 
     private fun openPictureDialog() {
         val myArray: Array<String> = arrayOf("take from camera 1", "insert from gallery 2")
@@ -208,7 +184,7 @@ class ProfileActivity :
 
         //Processing the photo result
         filePhoto = uploadFile
-        binding.btnSave?.visibility = View.VISIBLE
+        binding.btnSave.visibility = View.VISIBLE
         Log.d("cek isi photo", uploadFile.toString())
 
         if (uploadFile != null) {

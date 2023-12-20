@@ -1,9 +1,10 @@
+@file:Suppress("DEPRECATION")
+
 package com.bennohan.mydoctorapp.ui.home
 
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.core.widget.doOnTextChanged
@@ -72,7 +73,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         val intent = Intent(requireContext(), DetailDoctorActivity::class.java)
                         intent.putExtra(Const.DOCTOR.ID_DOCTOR, item.id)
                         startActivity(intent)
-                        Log.d("cek id doctor", item.id)
 
                     }
 
@@ -123,7 +123,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                             // Clicked on the already selected item, so deselect it
                             selectedPosition = RecyclerView.NO_POSITION
                             subdistrictsSelectd = false
-                            Log.d("condition lepas", "Subdistrict Lepas")
                         } else {
                             // Deselect the previously selected item
                             notifyItemChanged(selectedPosition)
@@ -135,9 +134,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                         // Notify the adapter that the data set has changed
                         notifyDataSetChanged()
-                        Log.d("cek selected Kecamatan", itm.name)
                         subdistrictsId = itm.id
-                        subdistrictsId?.let { it1 -> Log.d("cek selected KecamatanID", it1) }
 
                     }
 
@@ -181,7 +178,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                             // Clicked on the already selected item, so deselect it
                             selectedPosition = RecyclerView.NO_POSITION
                             categorySelected = false
-                            Log.d("condition lepas", "Category Lepas")
                         } else {
                             // Deselect the previously selected item
                             notifyItemChanged(selectedPosition)
@@ -232,7 +228,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             imageList.add(SlideModel(it.photo))
         }
         binding?.ivSliderBanner?.setImageList(imageList, ScaleTypes.FIT)
-        Log.d("cek image slider", "$imageList")
 
     }
 
@@ -297,7 +292,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
                 launch {
                     viewModel.listBannerSlider.collectLatest {
-                        Log.d("cek image collect", it.toString())
                         imageBannerList.clear()
                         imageBannerList.addAll(it)
                         imageSlider(it)
@@ -363,26 +357,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 subdistrictsSelectd == false && categorySelected == false -> {
                     // Both selectedId and categoryId are null
                     adapterDoctor.submitList(dataDoctor)
-                    Log.d("Condition 1", "Condition 1")
                 }
                 subdistrictsSelectd == false -> {
                     // Only selectedId is null
                     subdistrictsId = null
                     viewModel.getDoctorFilter(subdistrictsId, categoryId)
-                    Log.d("Condition 2", "Condition 2")
                 }
                 categorySelected == false -> {
                     // Only categoryId is null
                     categoryId = null
                     viewModel.getDoctorFilter(subdistrictsId, categoryId)
-                    Log.d("Condition 3", "Condition 3")
                 }
                 else -> {
                     // Both selectedId and categoryId are not null
                     // Your other logic goes here
                     viewModel.getDoctorFilter(subdistrictsId, categoryId)
 
-                    Log.d("Condition 4", "Condition 4")
 
                 }
             }

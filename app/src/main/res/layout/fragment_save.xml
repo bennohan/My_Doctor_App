@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Anda Belum Pernah Memesan Dokter"
+                    android:text="@string/anda_belum_pernah_memesan_dokter"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"

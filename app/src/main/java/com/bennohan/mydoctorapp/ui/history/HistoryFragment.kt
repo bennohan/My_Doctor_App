@@ -2,7 +2,6 @@ package com.bennohan.mydoctorapp.ui.history
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -73,7 +72,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
 
                     holder.binding.cardDoctor.setOnClickListener {
                         dataHistory = itm
-                        Log.d("cek data history single", dataHistory.toString())
                         openDialogHistory()
 
                     }
@@ -91,7 +89,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
         val dataDialog = dataHistory
         dialog.setContentView(R.layout.dialog_history)
 
-        Log.d("cek data history 1", dataDialog.toString())
 
         val tvName = dialog.findViewById<TextView>(R.id.tv_name)
         val tvDoctorCategory = dialog.findViewById<TextView>(R.id.tv_doctorCategory)
@@ -174,7 +171,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                 launch {
                     viewModel.listHistoryOrder.collectLatest { listHistory ->
                         adapterHistoryOrder.submitList(listHistory)
-                        Log.d("cek history", listHistory.toString())
                         if (listHistory.isEmpty()) {
                             binding?.tvAdapterEmpty?.visibility = View.VISIBLE
                         } else {

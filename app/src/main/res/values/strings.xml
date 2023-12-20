@@ -52,4 +52,22 @@
     <string name="new_password">New Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="reset_your_password_here">Reset Your Password Here</string>
+    <string name="description">Description</string>
+    <string name="category_doctor">Category Doctor</string>
+    <string name="alasan_keluhan">Alasan Keluhan :</string>
+    <string name="waktu_janji_temu">Waktu Janji Temu :</string>
+    <string name="buat_janji">Buat Janji</string>
+    <string name="ubah_waktu">Ubah Waktu</string>
+    <string name="category">Category</string>
+    <string name="filter">Filter</string>
+    <string name="waktu_reservasi">Waktu Reservasi</string>
+    <string name="keluhan_sakit">Keluhan Sakit</string>
+    <string name="status_reservasi">Status Reservasi</string>
+    <string name="tidak">Tidak</string>
+    <string name="ya_saya_ingin_keluar">Ya, Saya ingin keluar</string>
+    <string name="apakah_anda_yakin_akan_logout">Apakah Anda Yakin Akan Logout</string>
+    <string name="anda_belum_pernah_memesan_dokter">Anda Belum Pernah Memesan Dokter</string>
+    <string name="search">Search</string>
+    <string name="dokter_tidak_di_temukan">Dokter tidak di temukan</string>
+    <string name="status">Status :</string>
 </resources>

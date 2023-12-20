@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.bennohan.mydoctorapp.data.doctor.Doctor" />
@@ -17,9 +18,9 @@
 
         <ImageView
             android:id="@+id/iv_profileDoctor"
+            imageUrl='@{data.photo}'
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            imageUrl='@{data.photo}'
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -27,8 +28,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@null"
-            android:foreground="@drawable/ripple_effect"
             android:contentDescription="@string/button_back"
+            android:foreground="@drawable/ripple_effect"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,22 +39,23 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@null"
-            android:foreground="@drawable/ripple_effect"
             android:contentDescription="@string/button_back"
-            tools:src="@drawable/ic_baseline_bookmark_24"
+            android:foreground="@drawable/ripple_effect"
             android:src='@{data.saveByYou ? @drawable/ic_baseline_bookmark_24 : @drawable/ic_baseline_bookmark_border_24}'
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_bookmark_24" />
 
         <LinearLayout
             android:id="@+id/layout_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/iv_profileDoctor">
 
             <ImageView
+                android:contentDescription="@string/icon_nama"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
@@ -63,9 +65,9 @@
             <LinearLayout
                 android:id="@+id/linear_name"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,22 +81,22 @@
                     android:id="@+id/tv_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{data.name}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
 
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_name">
 
             <ImageView
@@ -106,14 +108,14 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category Doctor"
+                    android:text="@string/category_doctor"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -122,22 +124,22 @@
                     android:id="@+id/tv_doctorCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{data.category.name}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
 
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_category">
 
             <ImageView
@@ -149,9 +151,9 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,22 +167,22 @@
                     android:id="@+id/tv_doctorEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{data.email}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
 
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_email">
 
             <ImageView
@@ -192,9 +194,9 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -208,24 +210,24 @@
                     android:id="@+id/tv_doctorAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
                     android:text='@{data.address}'
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
 
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_address">
 
             <ImageView
@@ -237,9 +239,9 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -253,22 +255,22 @@
                     android:id="@+id/tv_doctorPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
                     android:text='@{data.phone}'
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
 
 
-
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/layout_phone">
 
             <ImageView
@@ -280,14 +282,14 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description"
+                    android:text="@string/description"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -296,15 +298,14 @@
                     android:id="@+id/tv_doctorDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/person_name"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
                     android:text='@{data.description}'
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="@string/person_name" />
 
             </LinearLayout>
-
 
 
         </LinearLayout>
@@ -326,8 +327,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:backgroundTint="@color/main_color_red"
-            app:layout_constraintTop_toBottomOf="@+id/layout_description" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_description"
+            tools:backgroundTint="@color/main_color_red" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

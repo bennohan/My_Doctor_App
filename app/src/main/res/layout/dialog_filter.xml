@@ -25,7 +25,7 @@
                 android:id="@+id/tv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Category"
+                android:text="@string/category"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="15dp"
-                android:text="Kecamatan"
+                android:text="@string/kecamatan"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -58,13 +58,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-<!--            <AutoCompleteTextView-->
-<!--                android:id="@+id/dropdown_category"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:background="@drawable/background_filter_dropdown"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+            <!--            <AutoCompleteTextView-->
+            <!--                android:id="@+id/dropdown_category"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:background="@drawable/background_filter_dropdown"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_doctorCategory"
@@ -100,10 +100,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/background_card"
             android:backgroundTint="@color/text_green"
             android:gravity="center"
-            android:text="Filter"
-            android:background="@drawable/background_card"
+            android:text="@string/filter"
             android:textAllCaps="false"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/linear_dropdown" />

@@ -7,7 +7,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.Lifecycle
@@ -147,17 +146,13 @@ class DetailDoctorActivity :
             val alasanKeluhan = etAlasan.text.toString()
             val dateTime = tvDateTime.textOf()
 
-            if (selectedHour.isNullOrBlank() || alasanKeluhan.isNullOrBlank()) {
+            if (selectedHour.isNullOrBlank() || alasanKeluhan.isBlank()) {
                 tos("Harap Isi Semua Data")
-                Log.d("cek ga", "$selectedHour")
-                Log.d("cek ga2", "$alasanKeluhan")
                 return@setOnClickListener
             } else {
                 viewModel.createReservations(idDoctor.toString(), dateTime, alasanKeluhan)
                 dialog.dismiss()
 //                tos(" Semua Data Komplit")
-                Log.d("cek ga", "$selectedHour")
-                Log.d("cek ga2", "$alasanKeluhan")
             }
 
         }
@@ -249,7 +244,6 @@ class DetailDoctorActivity :
                 }
                 launch {
                     viewModel.doctorImageList.collectLatest {
-                        Log.d("cek image", it.toString())
                     }
                 }
             }
