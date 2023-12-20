@@ -52,4 +52,9 @@
     <string name="new_password">New Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="reset_your_password_here">Reset Your Password Here</string>
+    <string name="category_doctor">Category Doctor</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="filter">Filter</string>
+    <string name="tidak">Tidak</string>
 </resources>

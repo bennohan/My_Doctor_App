@@ -80,7 +80,7 @@
                         android:background="@drawable/edittext_search_background"
                         android:drawableStart="@drawable/ic_baseline_search_grey"
                         android:drawablePadding="8dp"
-                        android:hint="@string/search"
+                        android:hint="Search"
                         android:inputType="text"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />
@@ -126,7 +126,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
-                    android:text="@string/dokter_tidak_di_temukan"
+                    android:text="Dokter tidak ditemukan"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
