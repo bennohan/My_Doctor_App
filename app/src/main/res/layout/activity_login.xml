@@ -48,7 +48,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputPhone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -83,7 +83,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

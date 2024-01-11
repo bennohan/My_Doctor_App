@@ -83,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:text='@{data.name}'
                     android:textSize="15sp"
+                    android:textColor="#393939"
                     android:textStyle="bold"
                     tools:text="@string/person_name" />
 
@@ -126,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:text='@{data.category.name}'
                     android:textSize="15sp"
+                    android:textColor="#393939"
                     android:textStyle="bold"
                     tools:text="@string/person_name" />
 
@@ -169,6 +171,7 @@
                     android:layout_height="wrap_content"
                     android:text='@{data.email}'
                     android:textSize="15sp"
+                    android:textColor="#393939"
                     android:textStyle="bold"
                     tools:text="@string/person_name" />
 
@@ -213,6 +216,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:text='@{data.address}'
+                    android:textColor="#393939"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     tools:text="@string/person_name" />
@@ -257,6 +261,7 @@
                     android:layout_height="wrap_content"
                     android:text='@{data.phone}'
                     android:textSize="15sp"
+                    android:textColor="#393939"
                     android:textStyle="bold"
                     tools:text="@string/person_name" />
 
@@ -300,6 +305,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    android:textColor="#393939"
                     android:text='@{data.description}'
                     android:textSize="12sp"
                     android:textStyle="bold"

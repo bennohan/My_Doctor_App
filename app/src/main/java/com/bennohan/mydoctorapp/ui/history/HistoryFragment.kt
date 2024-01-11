@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -59,6 +60,8 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                             )
                         }
                         "hold" -> {
+                            holder.binding.tvStatusReservation.visibility = View.GONE
+                            holder.binding.tvQueueNumber.visibility = View.GONE
                             holder.binding.tvStatusReservation.setTextColor(
                                 ContextCompat.getColor(
                                     requireContext(),
@@ -95,6 +98,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
         val tvTimeReservation = dialog.findViewById<TextView>(R.id.tv_timeReservation)
         val tvRemarks = dialog.findViewById<TextView>(R.id.tv_remarks)
         val tvStatus = dialog.findViewById<TextView>(R.id.tv_status)
+        val layoutNomorAntrian = dialog.findViewById<LinearLayout>(R.id.layoutNomorAntrian)
         val ivProfile = dialog.findViewById<ImageView>(R.id.iv_profile)
 
         tvName.text = dataDialog?.docter?.name
@@ -113,12 +117,14 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(R.layout.fragment_h
                     )
                 }
                 "hold" -> {
-                    tvStatus.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.grey
-                        )
-                    )
+                    tvStatus.visibility = View.GONE
+                    layoutNomorAntrian.visibility = View.GONE
+//                    tvStatus.setTextColor(
+//                        ContextCompat.getColor(
+//                            requireContext(),
+//                            R.color.grey
+//                        )
+//                    )
                 }
 
             }

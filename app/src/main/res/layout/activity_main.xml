@@ -32,8 +32,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:id="@+id/layout_splashOption"
             android:visibility="gone"
+            android:id="@+id/layout_splashOption"
             android:layout_height="match_parent">
 
 
@@ -89,6 +89,7 @@
             android:layout_marginBottom="30dp"
             android:text="@string/register"
             android:textAllCaps="false"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="28dp" />
 

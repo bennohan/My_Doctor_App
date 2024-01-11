@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="20dp">
 
@@ -70,8 +71,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputAlasan"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
+                style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"

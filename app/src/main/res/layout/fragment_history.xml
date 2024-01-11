@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="user"
             type="com.bennohan.mydoctorapp.data.user.User" />
@@ -89,10 +90,10 @@
                     android:id="@+id/tv_adapterEmpty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text="Anda belum pernah memesan dokter"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:layout_gravity="center_vertical"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

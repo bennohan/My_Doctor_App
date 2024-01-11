@@ -59,7 +59,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputPhone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -124,34 +124,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputPhone" />
 
-        <AutoCompleteTextView
-            android:id="@+id/textInputKecamatan"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputKecamatan1"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan">
+
+            <AutoCompleteTextView
+                android:id="@+id/textInputKecamatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan" />
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rv_kecamatan"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                tools:listitem="@layout/item_kecamatan" />-->
 
 
-        <!--        <com.google.android.material.textfield.TextInputLayout-->
-        <!--            android:id="@+id/textInputKecamatan"-->
-        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan">-->
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!--            <EditText-->
-        <!--                android:id="@+id/et_kecamatan"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center_vertical"-->
-        <!--                android:autofillHints="text"-->
-        <!--                android:inputType="text"-->
-        <!--                android:textColor="@color/black"-->
-        <!--                android:textStyle="bold" />-->
 
-        <!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+
 
         <TextView
             android:id="@+id/tv_email"
@@ -162,12 +165,12 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputKecamatan" />
+            app:layout_constraintTop_toBottomOf="@id/textInputKecamatan1" />
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInput_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -202,7 +205,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -237,7 +240,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInput_confirmPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

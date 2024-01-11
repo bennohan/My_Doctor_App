@@ -19,7 +19,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -50,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text='@{data.docter.category.name}'
+                android:textColor="#393939"
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/tv_doctorName"
@@ -62,9 +64,23 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text='@{data.timeReservation}'
+                android:textColor="#393939"
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@id/tv_doctorCategory"
+                tools:text="2023-11-11 09:00:00" />
+
+            <TextView
+                android:id="@+id/tv_queue_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:text='@{"Nomor Antrian :" + data.queueNumber}'
+                android:textColor="#393939"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@id/tv_doctorReservationDate"
                 tools:text="2023-11-11 09:00:00" />
 
             <TextView
@@ -74,9 +90,10 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Status :"
+                android:textColor="#393939"
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@id/tv_doctorReservationDate" />
+                app:layout_constraintTop_toBottomOf="@id/tv_queue_number" />
 
             <TextView
                 android:id="@+id/tv_statusReservation"
@@ -87,7 +104,7 @@
                 android:text='@{data.status}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/tv_status"
-                app:layout_constraintTop_toBottomOf="@id/tv_doctorReservationDate"
+                app:layout_constraintTop_toBottomOf="@id/tv_queue_number"
                 tools:text="Done" />
 
 

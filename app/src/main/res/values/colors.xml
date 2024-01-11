@@ -10,4 +10,5 @@
     <color name="main_color_red">#BE3333</color>
     <color name="grey">#777777</color>
     <color name="my_hint_color">#0D7E41</color>
+    <color name="bottomNavigationIconColor">@color/black</color>
 </resources>

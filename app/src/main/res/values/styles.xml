@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Other theme attributes -->
+
+        <!-- Text input layout style -->
+        <item name="textInputStyle">@style/Widget.MyApp.TextInputLayout.OutlinedBox.Dense</item>
+    </style>
+
+    <style name="Widget.MyApp.TextInputLayout.OutlinedBox.Dense" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <!-- Specify the outline box color for light and dark modes -->
+        <item name="boxStrokeColor">@android:color/black</item>
+    </style>
+</resources>

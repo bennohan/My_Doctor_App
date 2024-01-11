@@ -19,6 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -51,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textColor="#393939"
                 android:text='@{data.docter.category.name}'
                 android:textSize="15sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -62,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textColor="#393939"
                 android:layout_marginTop="5dp"
                 android:text='@{data.docter.address}'
                 android:textSize="15sp"

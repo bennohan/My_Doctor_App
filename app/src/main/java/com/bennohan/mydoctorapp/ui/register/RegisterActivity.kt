@@ -14,10 +14,9 @@ import com.bennohan.mydoctorapp.R
 import com.bennohan.mydoctorapp.base.BaseActivity
 import com.bennohan.mydoctorapp.data.subdistrict.Subdistrict
 import com.bennohan.mydoctorapp.databinding.ActivityRegisterBinding
+import com.bennohan.mydoctorapp.ui.login.LoginActivity
 import com.crocodic.core.api.ApiStatus
-import com.crocodic.core.extension.isEmptyRequired
-import com.crocodic.core.extension.textOf
-import com.crocodic.core.extension.tos
+import com.crocodic.core.extension.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,7 +64,7 @@ class RegisterActivity :
     }
 
     private fun isValidPasswordLength(password: String): Boolean {
-        return password.length >= 6
+        return password.length >= 8
     }
 
     private fun validatePassword() {
@@ -129,10 +128,10 @@ class RegisterActivity :
         }
 
         subdistrictsId?.let {
+            Log.d("Cek Kirim","$name,$phone$subdistrictsId,$email,$password,$confirmPassword")
             viewModel.register(name, email, phone,
-                it, password, confirmPassword)
+                password, confirmPassword,it)
         }
-        Log.d("Cek Kirim","$name,$phone$subdistrictsId,$email,$password,$confirmPassword")
     }
 
     private fun autocompleteSpinner() {
@@ -168,10 +167,16 @@ class RegisterActivity :
                         when (it.status) {
                             ApiStatus.LOADING -> loadingDialog.show()
                             ApiStatus.SUCCESS -> {
-                                loadingDialog.show("Register Success")
-                                tos("Register Success")
-                                finish()
-
+                                when(it.message){
+                                    "Register Success" ->{
+                                        loadingDialog.dismiss()
+                                        binding.root.snacked("Register Success")
+                                        tos("Register Success")
+                                        openActivity<LoginActivity>{
+                                            finish()
+                                        }
+                                    }
+                                }
                             }
                             ApiStatus.ERROR -> {
                                 disconnect(it)
@@ -191,6 +196,5 @@ class RegisterActivity :
             }
         }
     }
-
 
 }

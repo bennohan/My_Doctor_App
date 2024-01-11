@@ -42,7 +42,7 @@ class RegisterViewModel @Inject constructor(
             false,
             object : ApiObserver.ResponseListener {
                 override suspend fun onSuccess(response: JSONObject) {
-                    _apiResponse.emit(ApiResponse().responseSuccess())
+                    _apiResponse.emit(ApiResponse().responseSuccess("Register Success"))
 
                 }
 
